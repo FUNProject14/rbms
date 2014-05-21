@@ -1,107 +1,84 @@
 package org.rootbeer.rbms.model;
 
 public final class User {
-	private final Key key;
-	private final LoginId loginId;
-	private final Password password;
-	private final FullName fullName;
+	private final String loginId;
+	private final String password;
+	private final String fullName;
 	private final ProfileImage profileImage;
-	
-	static public final class LoginId {
-		private final String id;
-		
-		public LoginId(String id) {
-			this.id = new String(id);
-		}
-		LoginId(LoginId id) {
-			this.id = new String(id.id);
-		}
-		
-		@Override
-		public String toString() {
-			return new String(id);
-		}
-	}
-	
-	static public final class Password {
-		private final String password;
-		
-		Password(String password) {
-			this.password = new String(password);
-		}
-		Password(Password password) {
-			this.password = new String(password.password);
-		}
-		
-		@Override
-		public String toString() {
-			return new String(this.password);
-		}
-	}
-	
-	static public final class FullName {
-		private final String firstName;
-		private final String middleName;
-		private final String finalName;
-		FullName(String firstName, String middleName, String finalName) {
-			this.firstName = new String(firstName);
-			this.middleName = new String(middleName);
-			this.finalName = new String(finalName);
-		}
-		FullName(FullName fullName) {
-			this.firstName = new String(fullName.firstName);
-			this.middleName = new String(fullName.middleName);
-			this.finalName = new String(fullName.finalName);
-		}
-		
-		@Override
-		public String toString() {
-			return new String(firstName + " " + middleName + " " + finalName);
-		}
-	}
-	
-	static public final class ProfileImage {
+
+	public static final class ProfileImage {
 		private final String path;
-		
+
 		ProfileImage(String path) {
-			this.path = new String(path);
+			this.path = path;
 		}
-		ProfileImage(ProfileImage profileImage) {
-			this.path = new String(profileImage.path);
-		}
-		
+
 		@Override
 		public String toString() {
-			return new String(path);
+			return path;
 		}
 	}
 
-	public User(Key key, LoginId loginId, Password password,
-			FullName fullName, ProfileImage profileImage) {
-		this.key = key;
+	public User(String loginId, String password, String fullName,
+			ProfileImage profileImage) {
 		this.loginId = loginId;
 		this.password = password;
 		this.fullName = fullName;
 		this.profileImage = profileImage;
 	}
 
-	public Key getKey() {
-		return new Key(key);
-	}
-	
-	public LoginId getLoginId() {
-		return new LoginId(loginId);
+	public static final class Builder {
+		private String loginId;
+		private String password;
+		private String fullName;
+		private ProfileImage profileImage;
+		
+		public Builder() {}
+
+		public Builder(User user) {
+			this.loginId(user.loginId).password(user.password)
+					.fullName(user.fullName).profileImage(user.profileImage);
+		}
+
+		public Builder loginId(String loginId) {
+			this.loginId = loginId;
+			return this;
+		}
+
+		public Builder password(String password) {
+			this.password = password;
+			return this;
+		}
+
+		public Builder fullName(String fullName) {
+			this.fullName = fullName;
+			return this;
+		}
+
+		public Builder profileImage(ProfileImage profileImage) {
+			this.profileImage = profileImage;
+			return this;
+		}
+
+		public User build() {
+			return new User(loginId, password, fullName, profileImage);
+		}
 	}
 
-	public Password getPassword() {
-		return new Password(password);
+	public String getLoginId() {
+		return loginId;
 	}
 
-	public FullName getFullName() {
-		return new FullName(fullName);
+	public String getPassword() {
+		return password;
 	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
 	public ProfileImage getprofileImage() {
-		return new ProfileImage(profileImage);
+		return profileImage;
 	}
 
 }
