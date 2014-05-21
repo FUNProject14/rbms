@@ -1,6 +1,6 @@
 package org.rootbeer.rbms.model;
 
-public class Key {
+public final class Key {
 	private final Long key;
 	
 	public Key(Long key) {

@@ -2,22 +2,22 @@ package org.rootbeer.rbms.model;
 
 import org.rootbeer.rbms.model.User.*;
 
-public class UserBuilder {
+public final class UserBuilder {
 	private Key key;
-	private UserId userId;
+	private LoginId loginId;
 	private Password password;
 	private FullName fullName;
-	private Icon icon;
+	private ProfileImage profileImage;
 	
-	UserBuilder() {}
+	public UserBuilder() {}
 	
 	public UserBuilder key(Key key) {
 		this.key = new Key(key);
 		return this;
 	}
 	
-	public UserBuilder userId(UserId userId) {
-		this.userId = new UserId(userId);
+	public UserBuilder loginId(LoginId loginId) {
+		this.loginId = new LoginId(loginId);
 		return this;
 	}
 	
@@ -31,13 +31,13 @@ public class UserBuilder {
 		return this;
 	}
 	
-	public UserBuilder icon(Icon icon) {
-		this.icon = new Icon(icon);
+	public UserBuilder profileImage(ProfileImage profileImage) {
+		this.profileImage = new ProfileImage(profileImage);
 		return this;
 	}
 	
 	public User build() {
-		return new User(key, userId, password, fullName, icon);
+		return new User(key, loginId, password, fullName, profileImage);
 	}
 	
 }

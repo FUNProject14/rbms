@@ -2,7 +2,7 @@ package org.rootbeer.rbms.model;
 
 import java.util.Date;
 
-public class Post {
+public final class Post {
 	private final Key key;
 	private final User author;
 	private final String body;

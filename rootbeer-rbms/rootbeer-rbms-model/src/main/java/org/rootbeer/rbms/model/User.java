@@ -1,19 +1,19 @@
 package org.rootbeer.rbms.model;
 
-public class User {
-	private Key key;
-	private  UserId userId;
-	private  Password password;
-	private  FullName fullName;
-	private  Icon icon;
+public final class User {
+	private final Key key;
+	private final LoginId loginId;
+	private final Password password;
+	private final FullName fullName;
+	private final ProfileImage profileImage;
 	
-	static public class UserId {
+	static public final class LoginId {
 		private final String id;
 		
-		public UserId(String id) {
+		public LoginId(String id) {
 			this.id = new String(id);
 		}
-		UserId(UserId id) {
+		LoginId(LoginId id) {
 			this.id = new String(id.id);
 		}
 		
@@ -23,7 +23,7 @@ public class User {
 		}
 	}
 	
-	static public class Password {
+	static public final class Password {
 		private final String password;
 		
 		Password(String password) {
@@ -39,7 +39,7 @@ public class User {
 		}
 	}
 	
-	static public class FullName {
+	static public final class FullName {
 		private final String firstName;
 		private final String middleName;
 		private final String finalName;
@@ -60,14 +60,14 @@ public class User {
 		}
 	}
 	
-	static public class Icon {
+	static public final class ProfileImage {
 		private final String path;
 		
-		Icon(String path) {
+		ProfileImage(String path) {
 			this.path = new String(path);
 		}
-		Icon(Icon icon) {
-			this.path = new String(icon.path);
+		ProfileImage(ProfileImage profileImage) {
+			this.path = new String(profileImage.path);
 		}
 		
 		@Override
@@ -76,49 +76,32 @@ public class User {
 		}
 	}
 
-	public User(Key key, UserId userId, Password password,
-			FullName fullName, Icon icon) {
+	public User(Key key, LoginId loginId, Password password,
+			FullName fullName, ProfileImage profileImage) {
 		this.key = key;
-		this.userId = userId;
+		this.loginId = loginId;
 		this.password = password;
 		this.fullName = fullName;
-		this.icon = icon;
+		this.profileImage = profileImage;
 	}
 
 	public Key getKey() {
 		return new Key(key);
 	}
 	
-	public UserId getUserId() {
-		return new UserId(userId);
-	}
-	
-	public void setUserId(UserId userId) {
-		this.userId = new UserId(userId);
+	public LoginId getLoginId() {
+		return new LoginId(loginId);
 	}
 
 	public Password getPassword() {
 		return new Password(password);
 	}
 
-	public void setPassword(Password password) {
-		this.password = new Password(password);
-	}
-
 	public FullName getFullName() {
 		return new FullName(fullName);
 	}
-
-	public void setFullName(FullName fullName) {
-		this.fullName = new FullName(fullName);
-	}
-
-	public Icon getIcon() {
-		return new Icon(icon);
-	}
-
-	public void setIcon(Icon icon) {
-		this.icon = new Icon(icon);
+	public ProfileImage getprofileImage() {
+		return new ProfileImage(profileImage);
 	}
 
 }
