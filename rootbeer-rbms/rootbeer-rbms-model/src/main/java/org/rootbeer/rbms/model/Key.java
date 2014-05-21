@@ -1,12 +1,12 @@
 package org.rootbeer.rbms.model;
 
-public class PrimaryKey {
+public class Key {
 	private final Long key;
 	
-	public PrimaryKey(Long key) {
+	public Key(Long key) {
 		this.key = new Long(key);
 	}
-	public PrimaryKey(PrimaryKey key) {
+	public Key(Key key) {
 		this.key = new Long(key.key);
 	}
 	

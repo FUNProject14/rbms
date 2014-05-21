@@ -1,11 +1,11 @@
 package org.rootbeer.rbms.model;
 
 public class User {
-	private PrimaryKey key;
-	private UserId userId;
-	private Password password;
-	private FullName fullName;
-	private Icon icon;
+	private Key key;
+	private  UserId userId;
+	private  Password password;
+	private  FullName fullName;
+	private  Icon icon;
 	
 	static public class UserId {
 		private final String id;
@@ -75,11 +75,18 @@ public class User {
 			return new String(path);
 		}
 	}
-	
-	
 
-	public PrimaryKey getKey() {
-		return new PrimaryKey(key);
+	public User(Key key, UserId userId, Password password,
+			FullName fullName, Icon icon) {
+		this.key = key;
+		this.userId = userId;
+		this.password = password;
+		this.fullName = fullName;
+		this.icon = icon;
+	}
+
+	public Key getKey() {
+		return new Key(key);
 	}
 	
 	public UserId getUserId() {
