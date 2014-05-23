@@ -3,16 +3,16 @@ package org.rootbeer.rbms.model;
 import java.util.Date;
 
 public final class Post {
-	private final User author;
 	private final String body;
+	private final User author;
+	private final Date postedTime;
 	private final Post parent;
-	private final Date time;
 	
-	public Post(User author, String body, Post parent, Date time) {
-		this.author = author;
+	public Post(String body, User author, Date time, Post parent) {
 		this.body = body;
+		this.author = author;
+		this.postedTime = (Date) time.clone();
 		this.parent = parent;
-		this.time = (Date) time.clone();
 	}
 	
 	public User getAuthor() {
@@ -27,8 +27,8 @@ public final class Post {
 		return parent;
 	}
 
-	public Date getTime() {
-		return (Date) time.clone();
+	public Date getPostedTime() {
+		return (Date) postedTime.clone();
 	}
 	
 }

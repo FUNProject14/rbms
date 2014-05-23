@@ -77,7 +77,7 @@ public final class User {
 		return fullName;
 	}
 
-	public ProfileImage getprofileImage() {
+	public ProfileImage getProfileImage() {
 		return profileImage;
 	}
 
