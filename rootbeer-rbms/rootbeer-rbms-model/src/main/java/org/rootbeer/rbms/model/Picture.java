@@ -3,12 +3,23 @@ package org.rootbeer.rbms.model;
 import java.net.URI;
 import java.util.Date;
 
+/**
+ * URIで示される位置に投稿された画像を表すクラスです。
+ * @author kumar1
+ */
 public final class Picture {
 	private final URI path;
 	private final String description;
 	private final User author;
 	private final Date uploadedTime;
 	
+	/**
+	 * 画像がある位置を示すパス、説明文、撮影者、投稿された時刻からインスタンスを生成します。
+	 * @param path 画像のある位置を示すパス
+	 * @param description 説明文
+	 * @param author 撮影者
+	 * @param uploadedTime 投稿された時刻
+	 */
 	public Picture(URI path, String description, User author, Date uploadedTime) {
 		this.path = path;
 		this.description = description;
@@ -16,18 +27,34 @@ public final class Picture {
 		this.uploadedTime = new Date(uploadedTime.getTime());
 	}
 
+	/**
+	 * 画像のある位置を示すパスを返します。
+	 * @return 画像のある位置を示すパス
+	 */
 	public URI getPath() {
 		return path;
 	}
 
+	/**
+	 * 画像の説明文を返します。
+	 * @return 画像の説明文
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * 画像の撮影者を返します。
+	 * @return 画像の撮影者
+	 */
 	public User getAuthor() {
 		return author;
 	}
 
+	/**
+	 * 画像が投稿された時刻を返します。
+	 * @return 画像の投稿された時刻
+	 */
 	public Date getUploadedTime() {
 		return new Date(uploadedTime.getTime());
 	}
