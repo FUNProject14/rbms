@@ -1,7 +1,5 @@
 package org.rootbeer.rbms.model;
 
-import java.net.URI;
-
 /**
  * ユーザーを表すクラスです。
  * @author kumar1
@@ -17,13 +15,13 @@ public final class User {
 	 * @author kumar1
 	 */
 	public static final class ProfileImage {
-		private final URI path;
+		private final String path;
 
 		/**
 		 * プロフィール画像が置かれた位置を示すURIから、インスタンスを生成します。
 		 * @param path プロフィール画像が置かれた位置を示すURI
 		 */
-		ProfileImage(URI path) {
+		ProfileImage(String path) {
 			this.path = path;
 		}
 
