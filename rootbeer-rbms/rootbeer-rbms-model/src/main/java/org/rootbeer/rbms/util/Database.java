@@ -1,4 +1,4 @@
-package org.rootbeer.rbms.model;
+package org.rootbeer.rbms.util;
 
 import java.net.URI;
 import java.util.ArrayList;
