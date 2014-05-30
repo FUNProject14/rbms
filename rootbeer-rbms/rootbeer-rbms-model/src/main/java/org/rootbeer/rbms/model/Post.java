@@ -69,5 +69,28 @@ public final class Post {
 	public Date getPostedTime() {
 		return (Date) postedTime.clone();
 	}
+
+	@Override
+ 	public boolean equals(Object obj){
+ 		if(obj == null){
+ 			return false;
+ 		}
+ 		if(obj == this){
+ 			return true;
+ 		}
+ 		if(!(obj instanceof Post)){
+ 			return false;
+ 		}
+ 		Post post = (Post)obj;
+ 		return post.author.equals(author)
+ 				&& post.body.equals(body)
+ 				&& post.parent.equals(parent)
+ 				&& post.postedTime.equals(postedTime);
+ 	}
+  	
+ 	@Override
+ 	public int hashCode() {
+ 		return author.hashCode();
+ 	}
 	
 }
