@@ -4,7 +4,6 @@ import java.util.Date;
 
 /**
  * 投稿を示すクラスです。ある投稿への返信とすることも出来ます。
- * @author kumar1
  */
 public final class Post {
 	private final String body;

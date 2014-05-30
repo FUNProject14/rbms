@@ -4,7 +4,6 @@ import java.util.Date;
 
 /**
  * パスで示される位置に投稿された画像を表すクラスです。
- * @author kumar1
  */
 public final class Picture {
 	private final String path;
