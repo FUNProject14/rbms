@@ -2,7 +2,6 @@ package org.rootbeer.rbms.model;
 
 /**
  * ユーザーを表すクラスです。
- * @author kumar1
  */
 public final class User {
 	private final String loginId;
@@ -12,7 +11,6 @@ public final class User {
 
 	/**
 	 * URIで示される位置に置かれたプロフィール画像を表すクラスです。
-	 * @author kumar1
 	 */
 	public static final class ProfileImage {
 		private final String path;
@@ -67,7 +65,6 @@ public final class User {
 	 * <code>User</code>クラスを生成するビルダーです。
 	 * 各メソッドで構成を行ったのち、<code>build</code>メソッドを呼び出すことで、
 	 * <code>User</code>クラスのインスタンスを得ることが出来ます。
-	 * @author kumar1
 	 */
 	public static final class Builder {
 		private String loginId;

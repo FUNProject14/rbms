@@ -4,7 +4,6 @@ import java.util.Date;
 
 /**
  * ユーザーの行動を示すクラスです。
- * @author kumar1
  */
 public final class Action {
 	private final Act act;
@@ -13,7 +12,6 @@ public final class Action {
 	
 	/**
 	 * 行動の種類を示す列挙型クラスです。
-	 * @author kumar1
 	 */
 	enum Act {
 		/** 購入 */
