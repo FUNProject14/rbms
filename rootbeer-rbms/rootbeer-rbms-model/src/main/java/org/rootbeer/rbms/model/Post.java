@@ -90,7 +90,7 @@ public final class Post {
   	
  	@Override
  	public int hashCode() {
- 		return author.hashCode();
+ 		return author.hashCode()+postedTime.hashCode();
  	}
 	
 }
