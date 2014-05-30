@@ -56,4 +56,28 @@ public final class Picture {
 	public Date getUploadedTime() {
 		return new Date(uploadedTime.getTime());
 	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj == null){
+			return false;
+		}
+		if(obj == this){
+			return true;
+		}
+		if(!(obj instanceof Picture)){
+			return false;
+		}
+		Picture pic = (Picture)obj;
+		return pic.path.equals(path)
+				&& pic.description.equals(description)
+				&& pic.author.equals(author)
+				&& pic.uploadedTime.equals(uploadedTime);
+	}
+	
+	@Override
+	public int hashCode(){
+		return path.hashCode();
+	}
+	
 }
