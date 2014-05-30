@@ -32,6 +32,8 @@ public final class User {
 		
 		@Override
 		public boolean equals(Object obj) {
+			if (obj == null)
+				return false;
 			if (obj == this)
 				return true;
 			if (!(obj instanceof ProfileImage))
@@ -170,6 +172,8 @@ public final class User {
 	
 	@Override
 	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
 		if (obj == this)
 			return true;
 		if (!(obj instanceof User))
