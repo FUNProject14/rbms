@@ -29,6 +29,23 @@ public final class User {
 		public String toString() {
 			return path.toString();
 		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == null)
+				return false;
+			if (obj == this)
+				return true;
+			if (!(obj instanceof ProfileImage))
+				return false;
+			ProfileImage pi = (ProfileImage)obj;
+			return pi.path.equals(path);
+		}
+		
+		@Override
+		public int hashCode() {
+			return path.hashCode();
+		}
 	}
 
 	/**
@@ -152,5 +169,24 @@ public final class User {
 	public ProfileImage getProfileImage() {
 		return profileImage;
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof User))
+			return false;
+		User user = (User)obj;
+		return user.loginId.equals(loginId)
+				&& user.password.equals(password)
+				&& user.fullName.equals(fullName)
+				&& user.profileImage.equals(profileImage);
+	}
+	
+	@Override
+	public int hashCode() {
+		return loginId.hashCode();
+	}
 }
