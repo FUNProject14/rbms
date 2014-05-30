@@ -1,15 +1,18 @@
 package org.rootbeer.rbms.util;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
-
 
 import com.couchbase.client.CouchbaseClient;
 
 public class Database {
 	public CouchbaseClient client;
 	
-	public Database() throws Exception {
+	/**
+	 * @throws IOException データベースに接続できなかったとき
+	 */
+	public Database() throws IOException {
 		ArrayList<URI> nodes = new ArrayList<URI>();
 
 		// Add one or more nodes of your cluster (exchange the IP with yours)
@@ -21,6 +24,9 @@ public class Database {
 		this.client = client;
 	}
 	
+	/**
+	 * データベースとの接続を切る
+	 */
 	public void close() {
 		// Shutdown the client
 		client.shutdown();
