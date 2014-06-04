@@ -8,7 +8,7 @@ import org.rootbeer.rbms.model.User;
 
 public class UserTest {
 	@Test
-	public void testConstuct() {
+	public void testConstuctor() {
 		User user = new User("kumar8600", "unkoderu", "Yuya Kumagai");
 		assertThat(user.getUserId(), is("kumar8600"));
 		assertThat(user.getPassword(), is("unkoderu"));
