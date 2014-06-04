@@ -11,6 +11,8 @@ public final class Post {
 	private Date postedTime;
 	private String parentPostId;
 	
+	public Post() {}
+	
 	/**
 	 * 本文、著者、投稿時刻の投稿からインスタンスを生成します。
 	 * @param body 本文

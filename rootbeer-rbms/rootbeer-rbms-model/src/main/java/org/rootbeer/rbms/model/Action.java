@@ -20,6 +20,8 @@ public final class Action {
 		DRINK;
 	}
 	
+	public Action() {}
+	
 	/**
 	 * 行動の種類、それを行ったユーザー、それを行った時刻からインスタンスを生成します。
 	 * @param act 行動の種類

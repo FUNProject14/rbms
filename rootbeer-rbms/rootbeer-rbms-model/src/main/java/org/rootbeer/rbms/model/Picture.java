@@ -11,6 +11,8 @@ public final class Picture {
 	private String authorUserId;
 	private Date uploadedTime;
 	
+	public Picture() {}
+	
 	/**
 	 * 画像がある位置を示すパス、説明文、撮影者、投稿された時刻からインスタンスを生成します。
 	 * @param path 画像のある位置を示すパス

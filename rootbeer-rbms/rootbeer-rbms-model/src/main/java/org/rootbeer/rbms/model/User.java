@@ -8,6 +8,8 @@ public final class User {
 	private String password;
 	private String fullName;
 
+	public User() {}
+	
 	/**
 	 * ユーザーID、パスワード、フルネーム、プロフィール画像から、インスタンスを生成します。
 	 * @param userId ユーザーID
