@@ -6,22 +6,22 @@ import java.util.Date;
  * 投稿を示すクラスです。ある投稿への返信とすることも出来ます。
  */
 public final class Post {
-	private final String body;
-	private final User author;
-	private final Date postedTime;
-	private final Post parent;
+	private String body;
+	private String authorUserId;
+	private Date postedTime;
+	private String parentPostId;
 	
 	/**
 	 * 本文、著者、投稿時刻の投稿からインスタンスを生成します。
 	 * @param body 本文
-	 * @param author 著者
+	 * @param authorUserId 著者のユーザID
 	 * @param postedTime 投稿時刻
 	 */
-	public Post(String body, User author, Date postedTime) {
+	public Post(String body, String authorUserId, Date postedTime) {
 		this.body = body;
-		this.author = author;
+		this.authorUserId = authorUserId;
 		this.postedTime = (Date) postedTime.clone();
-		this.parent = null;
+		this.parentPostId = null;
 	}
 	
 	/**
@@ -31,19 +31,19 @@ public final class Post {
 	 * @param postedTime 投稿時刻
 	 * @param parent 返信先の投稿
 	 */
-	public Post(String body, User author, Date postedTime, Post parent) {
+	public Post(String body, String authorUserId, Date postedTime, String parentPostId) {
 		this.body = body;
-		this.author = author;
+		this.authorUserId = authorUserId;
 		this.postedTime = (Date) postedTime.clone();
-		this.parent = parent;
+		this.parentPostId = parentPostId;
 	}
 	
 	/**
-	 * 著者を返します。
-	 * @return 著者
+	 * 著者のユーザIDを返します。
+	 * @return 著者のユーザID
 	 */
-	public User getAuthor() {
-		return author;
+	public String getAuthorUserId() {
+		return authorUserId;
 	}
 
 	/**
@@ -55,11 +55,11 @@ public final class Post {
 	}
 
 	/**
-	 * 返信先を返します。
-	 * @return 返信先
+	 * 返信先のポストIDを返します。
+	 * @return 返信先のポストID
 	 */
-	public Post getParent() {
-		return parent;
+	public String getParentPostId() {
+		return parentPostId;
 	}
 
 	/**
@@ -68,6 +68,22 @@ public final class Post {
 	 */
 	public Date getPostedTime() {
 		return (Date) postedTime.clone();
+	}
+	
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	public void setAuthorUserId(String authorUserId) {
+		this.authorUserId = authorUserId;
+	}
+
+	public void setPostedTime(Date postedTime) {
+		this.postedTime = postedTime;
+	}
+
+	public void setParentPostId(String parentPostId) {
+		this.parentPostId = parentPostId;
 	}
 
 	@Override
@@ -82,15 +98,15 @@ public final class Post {
  			return false;
  		}
  		Post post = (Post)obj;
- 		return post.author.equals(author)
+ 		return post.authorUserId.equals(authorUserId)
  				&& post.body.equals(body)
- 				&& post.parent.equals(parent)
+ 				&& post.parentPostId.equals(parentPostId)
  				&& post.postedTime.equals(postedTime);
  	}
   	
  	@Override
  	public int hashCode() {
- 		return author.hashCode()+postedTime.hashCode();
+ 		return authorUserId.hashCode()+postedTime.hashCode();
  	}
 	
 }

@@ -6,9 +6,9 @@ import java.util.Date;
  * ユーザーの行動を示すクラスです。
  */
 public final class Action {
-	private final Act act;
-	private final User actor;
-	private final Date actedTime;
+	private Act act;
+	private String actorUserId;
+	private Date actedTime;
 	
 	/**
 	 * 行動の種類を示す列挙型クラスです。
@@ -23,12 +23,12 @@ public final class Action {
 	/**
 	 * 行動の種類、それを行ったユーザー、それを行った時刻からインスタンスを生成します。
 	 * @param act 行動の種類
-	 * @param actor 行動したユーザー
+	 * @param actorUserId 行動したユーザーのID
 	 * @param actedTime 行動した時刻
 	 */
-	public Action(Act act, User actor, Date actedTime) {
+	public Action(Act act, String actorUserId, Date actedTime) {
 		this.act = act;
-		this.actor = actor;
+		this.actorUserId = actorUserId;
 		this.actedTime = actedTime;
 	}
 
@@ -41,11 +41,11 @@ public final class Action {
 	}
 
 	/**
-	 * 行動したユーザーを返します。
-	 * @return 行動したユーザー
+	 * 行動したユーザーのIDを返します。
+	 * @return 行動したユーザーのID
 	 */
-	public User getActor() {
-		return actor;
+	public String getActorUserId() {
+		return actorUserId;
 	}
 
 	/**
@@ -54,6 +54,18 @@ public final class Action {
 	 */
 	public Date getActedTime() {
 		return actedTime;
+	}
+
+	public void setAct(Act act) {
+		this.act = act;
+	}
+
+	public void setActorUserId(String actorUserId) {
+		this.actorUserId = actorUserId;
+	}
+
+	public void setActedTime(Date actedTime) {
+		this.actedTime = actedTime;
 	}
 	
 	@Override
@@ -67,7 +79,7 @@ public final class Action {
 		Action action = (Action)obj;
 		return action.act.equals(act)
 				&& action.actedTime.equals(actedTime)
-				&& action.actor.equals(actor);
+				&& action.actorUserId.equals(actorUserId);
 	}
 	
 	@Override
