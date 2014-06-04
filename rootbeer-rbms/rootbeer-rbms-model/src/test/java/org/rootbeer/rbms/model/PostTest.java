@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class PostTest {
 	@Test
-	public void testConstruct() {
+	public void testConstructor() {
 		Date testDate = new Date();
 		Post testPost = new Post("TEST", "uchiyama", testDate, "parent");
 		
