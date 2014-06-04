@@ -11,6 +11,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -49,7 +50,7 @@ public class MyVaadinUI extends UI
 		custom.addComponent(username, "username");
 
 
-		TextField password = new TextField();
+		PasswordField password = new PasswordField();
 		custom.addComponent(password, "password");
 
 
