@@ -11,12 +11,18 @@
   </properties>
   <modules>
   	<module>rootbeer-rbms-model</module>
+  	<module>rootbeer-rbms-view</module>
   </modules>
   <dependencies>
   	<dependency>
   		<groupId>com.couchbase.client</groupId>
   		<artifactId>couchbase-client</artifactId>
   		<version>1.4.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.google.code.gson</groupId>
+  		<artifactId>gson</artifactId>
+  		<version>1.7.1</version>
   	</dependency>
   </dependencies>
   <build>
