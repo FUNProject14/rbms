@@ -6,22 +6,22 @@ import java.util.Date;
  * パスで示される位置に投稿された画像を表すクラスです。
  */
 public final class Picture {
-	private final String path;
-	private final String description;
-	private final User author;
-	private final Date uploadedTime;
+	private String path;
+	private String description;
+	private String authorUserId;
+	private Date uploadedTime;
 	
 	/**
 	 * 画像がある位置を示すパス、説明文、撮影者、投稿された時刻からインスタンスを生成します。
 	 * @param path 画像のある位置を示すパス
 	 * @param description 説明文
-	 * @param author 撮影者
+	 * @param authorUserId 撮影者のユーザID
 	 * @param uploadedTime 投稿された時刻
 	 */
-	public Picture(String path, String description, User author, Date uploadedTime) {
+	public Picture(String path, String description, String authorUserId, Date uploadedTime) {
 		this.path = path;
 		this.description = description;
-		this.author = author;
+		this.authorUserId = authorUserId;
 		this.uploadedTime = new Date(uploadedTime.getTime());
 	}
 
@@ -42,11 +42,11 @@ public final class Picture {
 	}
 
 	/**
-	 * 画像の撮影者を返します。
-	 * @return 画像の撮影者
+	 * 画像の撮影者のユーザIDを返します。
+	 * @return 画像の撮影者のユーザID
 	 */
-	public User getAuthor() {
-		return author;
+	public String getAuthorUserId() {
+		return authorUserId;
 	}
 
 	/**
@@ -57,6 +57,22 @@ public final class Picture {
 		return new Date(uploadedTime.getTime());
 	}
 	
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setAuthorUserId(String authorUserId) {
+		this.authorUserId = authorUserId;
+	}
+
+	public void setUploadedTime(Date uploadedTime) {
+		this.uploadedTime = uploadedTime;
+	}
+
 	@Override
 	public boolean equals(Object obj){
 		if(obj == null){
@@ -71,7 +87,7 @@ public final class Picture {
 		Picture pic = (Picture)obj;
 		return pic.path.equals(path)
 				&& pic.description.equals(description)
-				&& pic.author.equals(author)
+				&& pic.authorUserId.equals(authorUserId)
 				&& pic.uploadedTime.equals(uploadedTime);
 	}
 	
