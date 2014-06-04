@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class PictureTest {
     @Test
-    public void PictureConstruct(){
+    public void pictureConstructor(){
         Date date = new Date();
         Picture picture = new Picture("path","des","auth", date);
         
@@ -20,7 +20,7 @@ public class PictureTest {
     }
     
     @Test
-    public void PictureAccess(){
+    public void pictureAccessor(){
         Date date = new Date();
         Picture picture = new Picture();
         
@@ -35,7 +35,7 @@ public class PictureTest {
     }
     
     @Test
-    public void PictureEqual(){
+    public void pictureEquality(){
         Date date = new Date();
         Picture picture1 = new Picture("path","des","auth", date);
         Picture picture2 = new Picture("path","des","auth", date);
