@@ -8,56 +8,51 @@ import java.util.Date;
 public class PostTest {
 	@Test
 	public void testConstructor() {
-		Date testDate = new Date();
-		Post testPost = new Post("TEST", "uchiyama", testDate, "parent");
+		long testDate = System.currentTimeMillis();
+		Post testPost = new Post("TEST", "uchiyama", new Date(testDate), "parent");
 		
 		assertThat(testPost.getBody(), is("TEST"));
 		assertThat(testPost.getAuthorUserId() , is("uchiyama"));
-		assertThat(testPost.getPostedTime(), is(testDate));
+		assertThat(testPost.getPostedTime(), is(new Date(testDate)));
 		assertThat(testPost.getParentPostId(), is("parent"));
 	}
 	
 	@Test
 	public void testAccessor(){
-		Date testDate = new Date();		
+		long testDate = System.currentTimeMillis();	
 		Post testPost = new Post();
 		
 		testPost.setAuthorUserId("uchiyama");
 		assertThat(testPost.getAuthorUserId(), is("uchiyama"));
 		testPost.setBody("TEST");
 		assertThat(testPost.getBody(), is("TEST"));
-		testPost.setPostedTime(testDate);
-		assertThat(testPost.getPostedTime(), is(testDate));
+		testPost.setPostedTime(new Date(testDate));
+		assertThat(testPost.getPostedTime(), is(new Date(testDate)));
 		testPost.setParentPostId("parent");
 		assertThat(testPost.getParentPostId(), is("parent"));
 	}
 	
 	@Test
 	public void testEquality(){
-		long dateA = System.currentTimeMillis();
-		long dateB = System.currentTimeMillis()+1;
-		Date testDateA = new Date(dateA);
-		Date testDateB = new Date(dateB);
-		Post testPostAAAA = new Post("TESTA", "uchiyamaA", testDateA, "parentA");
-		Post testPostAAAA2 = new Post("TESTA", "uchiyamaA", testDateA, "parentA");
-		Post testPostAAAB = new Post("TESTA", "uchiyamaA", testDateA, "parentB");
-		Post testPostAABA = new Post("TESTA", "uchiyamaA", testDateB, "parentA");
-		Post testPostAABB = new Post("TESTA", "uchiyamaA", testDateB, "parentB");
-		Post testPostABAA = new Post("TESTA", "uchiyamaB", testDateA, "parentA");
-		Post testPostABAB = new Post("TESTA", "uchiyamaB", testDateA, "parentB");
-		Post testPostABBA = new Post("TESTA", "uchiyamaB", testDateB, "parentA");
-		Post testPostABBB = new Post("TESTA", "uchiyamaB", testDateB, "parentB");
-		Post testPostBAAA = new Post("TESTB", "uchiyamaA", testDateA, "parentA");
-		Post testPostBAAB = new Post("TESTB", "uchiyamaA", testDateA, "parentB");
-		Post testPostBABA = new Post("TESTB", "uchiyamaA", testDateB, "parentA");
-		Post testPostBABB = new Post("TESTB", "uchiyamaA", testDateB, "parentB");
-		Post testPostBBAA = new Post("TESTB", "uchiyamaB", testDateA, "parentA");
-		Post testPostBBAB = new Post("TESTB", "uchiyamaB", testDateA, "parentB");
-		Post testPostBBBA = new Post("TESTB", "uchiyamaB", testDateB, "parentA");
-		Post testPostBBBB = new Post("TESTB", "uchiyamaB", testDateB, "parentB");	
-		
-		assertThat(dateA, is(not(dateB)));
-		assertThat(new Date(dateA), is(not(new Date(dateB))));
+		long testDateA = System.currentTimeMillis();
+		long testDateB = System.currentTimeMillis()+1;
+		Post testPostAAAA = new Post("TESTA", "uchiyamaA", new Date(testDateA), "parentA");
+		Post testPostAAAA2 = new Post("TESTA", "uchiyamaA", new Date(testDateA), "parentA");
+		Post testPostAAAB = new Post("TESTA", "uchiyamaA", new Date(testDateA), "parentB");
+		Post testPostAABA = new Post("TESTA", "uchiyamaA", new Date(testDateB), "parentA");
+		Post testPostAABB = new Post("TESTA", "uchiyamaA", new Date(testDateB), "parentB");
+		Post testPostABAA = new Post("TESTA", "uchiyamaB", new Date(testDateA), "parentA");
+		Post testPostABAB = new Post("TESTA", "uchiyamaB", new Date(testDateA), "parentB");
+		Post testPostABBA = new Post("TESTA", "uchiyamaB", new Date(testDateB), "parentA");
+		Post testPostABBB = new Post("TESTA", "uchiyamaB", new Date(testDateB), "parentB");
+		Post testPostBAAA = new Post("TESTB", "uchiyamaA", new Date(testDateA), "parentA");
+		Post testPostBAAB = new Post("TESTB", "uchiyamaA", new Date(testDateA), "parentB");
+		Post testPostBABA = new Post("TESTB", "uchiyamaA", new Date(testDateB), "parentA");
+		Post testPostBABB = new Post("TESTB", "uchiyamaA", new Date(testDateB), "parentB");
+		Post testPostBBAA = new Post("TESTB", "uchiyamaB", new Date(testDateA), "parentA");
+		Post testPostBBAB = new Post("TESTB", "uchiyamaB", new Date(testDateA), "parentB");
+		Post testPostBBBA = new Post("TESTB", "uchiyamaB", new Date(testDateB), "parentA");
+		Post testPostBBBB = new Post("TESTB", "uchiyamaB", new Date(testDateB), "parentB");	
 		
 		assertThat(testPostAAAA, is(testPostAAAA2));
 		assertThat(testPostAAAA, is(not(testPostAAAB)));
