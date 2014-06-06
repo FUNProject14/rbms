@@ -4,6 +4,7 @@ import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
@@ -20,7 +21,6 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class MyVaadinUI extends UI
 {
-
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = MyVaadinUI.class)
 	public static class Servlet extends VaadinServlet {
@@ -28,6 +28,9 @@ public class MyVaadinUI extends UI
 
 	@Override
 	protected void init(VaadinRequest request) {
+		// Set the page title (window or tab caption)
+		Page.getCurrent().setTitle("Login Page");
+		
 		final VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(true);
 		setContent(layout);
@@ -48,7 +51,6 @@ public class MyVaadinUI extends UI
 		// in the custom layout.
 		TextField username = new TextField();
 		custom.addComponent(username, "username");
-
 
 		PasswordField password = new PasswordField();
 		custom.addComponent(password, "password");
