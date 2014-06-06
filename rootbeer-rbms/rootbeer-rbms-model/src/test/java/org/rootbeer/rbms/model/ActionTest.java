@@ -14,11 +14,12 @@ public class ActionTest {
 	@Test
 	public void testContstructor(){
 
-		Action testAction = new Action(Act.BUY, "hogeA", new Date(System.currentTimeMillis()));
+		long testTime = System.currentTimeMillis();
+		Action testAction = new Action(Act.BUY, "hogeA", new Date(testTime));
 
 		assertThat(testAction.getAct(), is(Act.BUY));
 		assertThat(testAction.getActorUserId(), is("hogeA"));
-		assertThat(testAction.getActedTime(), is(new Date(System.currentTimeMillis())));
+		assertThat(testAction.getActedTime(), is(new Date(testTime)));
 
 	}
 
@@ -35,8 +36,9 @@ public class ActionTest {
 		testAction.setActorUserId("hogehoge");
 		assertThat(testAction.getActorUserId(), is("hogehoge"));
 
-		testAction.setActedTime(new Date(System.currentTimeMillis()));
-		assertThat(testAction.getActedTime(), is(new Date(System.currentTimeMillis())));
+		long testTime = System.currentTimeMillis();
+		testAction.setActedTime(new Date(testTime));
+		assertThat(testAction.getActedTime(), is(new Date(testTime)));
 
 	}
 
@@ -44,15 +46,18 @@ public class ActionTest {
 	@Test
 	public void testEquality(){
 
-		Action testActionAAA = new Action(Act.BUY, "hogeA", new Date(System.currentTimeMillis()));
-		Action testActionAAA2 = new Action(Act.BUY, "hogeA", new Date(System.currentTimeMillis()));
-		Action testActionAAB = new Action(Act.BUY, "hogeA", new Date(System.currentTimeMillis()+1));
-		Action testActionABA = new Action(Act.BUY, "hogeB", new Date(System.currentTimeMillis()));
-		Action testActionBAA = new Action(Act.DRINK, "hogeA", new Date(System.currentTimeMillis()));
-		Action testActionABB = new Action(Act.BUY, "hogeB", new Date(System.currentTimeMillis()+1));
-		Action testActionBAB = new Action(Act.DRINK, "hogeA", new Date(System.currentTimeMillis()+1));
-		Action testActionBBA = new Action(Act.DRINK, "hogeB", new Date(System.currentTimeMillis()));
-		Action testActionBBB = new Action(Act.DRINK, "hogeB", new Date(System.currentTimeMillis()+1));
+		long testTimeA = System.currentTimeMillis();
+		long testTimeB = System.currentTimeMillis()+1;
+
+		Action testActionAAA = new Action(Act.BUY, "hogeA", new Date(testTimeA));
+		Action testActionAAA2 = new Action(Act.BUY, "hogeA", new Date(testTimeA));
+		Action testActionAAB = new Action(Act.BUY, "hogeA", new Date(testTimeB));
+		Action testActionABA = new Action(Act.BUY, "hogeB", new Date(testTimeA));
+		Action testActionBAA = new Action(Act.DRINK, "hogeA", new Date(testTimeA));
+		Action testActionABB = new Action(Act.BUY, "hogeB", new Date(testTimeB));
+		Action testActionBAB = new Action(Act.DRINK, "hogeA", new Date(testTimeB));
+		Action testActionBBA = new Action(Act.DRINK, "hogeB", new Date(testTimeA));
+		Action testActionBBB = new Action(Act.DRINK, "hogeB", new Date(testTimeB));
 
 		assertThat(testActionAAA, is(testActionAAA2));
 		assertThat(testActionAAA, is(not(testActionAAB)));
