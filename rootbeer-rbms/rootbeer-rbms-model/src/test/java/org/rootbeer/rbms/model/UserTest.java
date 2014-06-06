@@ -36,6 +36,7 @@ public class UserTest {
 		User userAAB = new User("kumar8600", "unkoderu", "Hirobumi Ito");
 		User userABB = new User("kumar8600", "unkodenai", "Hirobumi Ito");
 		User userBBB = new User("kumar17200", "unkodenai", "Hirobumi Ito");
+		User userBBA = new User("kumar17200", "unkodenai", "Yuya Kumagai");
 		
 		
 		assertThat(userAAA, is(userAAA2));
@@ -44,6 +45,7 @@ public class UserTest {
 		assertThat(userAAA, is(not(userAAB)));
 		assertThat(userAAA, is(not(userABB)));
 		assertThat(userAAA, is(not(userBBB)));
+		assertThat(userAAA, is(not(userBBA)));
 		
 		assertThat(userAAA.hashCode(), is(userAAA2.hashCode()));
 	}
