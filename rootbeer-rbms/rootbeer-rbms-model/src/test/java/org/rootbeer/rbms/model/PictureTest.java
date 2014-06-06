@@ -39,7 +39,7 @@ public class PictureTest {
         long time = System.currentTimeMillis();
 
         Picture pictureAAAA = new Picture("path","des","auth", new Date(time));
-        Picture pictureAAAA2 = new Picture("path","des","auth", new Date(time+time));
+        Picture pictureAAAA2 = new Picture("path","des","auth", new Date(time));
         Picture pictureBAAA = new Picture("path2","des","auth", new Date(time));
         Picture pictureABAA = new Picture("path","des2","auth",new Date(time));
         Picture pictureAABA = new Picture("path","des","auth2", new Date(time));
