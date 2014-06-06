@@ -39,7 +39,7 @@ public class PostTest {
 		Date testDateA = new Date(dateA);
 		Date testDateB = new Date(dateB);
 		Post testPostAAAA = new Post("TESTA", "uchiyamaA", testDateA, "parentA");
-	    Post testPostAAAA2 = new Post("TESTA", "uchiyamaA", testDateA, "parentA");
+		Post testPostAAAA2 = new Post("TESTA", "uchiyamaA", testDateA, "parentA");
 		Post testPostAAAB = new Post("TESTA", "uchiyamaA", testDateA, "parentB");
 		Post testPostAABA = new Post("TESTA", "uchiyamaA", testDateB, "parentA");
 		Post testPostAABB = new Post("TESTA", "uchiyamaA", testDateB, "parentB");
