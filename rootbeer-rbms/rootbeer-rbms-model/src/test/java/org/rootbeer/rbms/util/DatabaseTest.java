@@ -7,6 +7,7 @@ import org.junit.*;
 
 import com.couchbase.client.CouchbaseClient;
 import static org.rootbeer.rbms.util.Database.*;
+import org.rootbeer.rbms.model.*;
 
 public class DatabaseTest {
 	private static final String MICHIKO = "michiko_oba"; 
@@ -19,7 +20,7 @@ public class DatabaseTest {
 	}
 	
 	@Test
-	public void testAccessorAction() {
+	public void testAccessingAction() {
 		
 	}
 }
