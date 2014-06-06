@@ -3,45 +3,71 @@ package org.rootbeer.rbms.util;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.EnumMap;
 
 import com.couchbase.client.CouchbaseClient;
 
 public class Database {
-	public CouchbaseClient client;
-	
-	/**
-	 * @throws IOException データベースに接続できなかったとき
-	 */
-	public Database() throws IOException {
+	private static EnumMap<Bucket, CouchbaseClient> clientMap;
+
+	public enum Bucket {
+		ACTION, PICTURE, POST, USER, HELLO,
+	}
+
+	static {
+		clientMap = new EnumMap<>(Bucket.class);
 		ArrayList<URI> nodes = new ArrayList<URI>();
 
 		// Add one or more nodes of your cluster (exchange the IP with yours)
 		nodes.add(URI.create("http://10.6.16.140:8091/pools"));
 
 		// Try to connect to the client
-		CouchbaseClient client = new CouchbaseClient(nodes, "rootbeer-rbms", "mahara123");
-		
-		this.client = client;
+		try {
+			clientMap.put(Bucket.ACTION, new CouchbaseClient(nodes,
+					"rootbeer-rbms-action", "mahara123"));
+			clientMap.put(Bucket.PICTURE, new CouchbaseClient(nodes,
+					"rootbeer-rbms-picture", "mahara123"));
+			clientMap.put(Bucket.POST, new CouchbaseClient(nodes,
+					"rootbeer-rbms-post", "mahara123"));
+			clientMap.put(Bucket.USER, new CouchbaseClient(nodes,
+					"rootbeer-rbms-user", "mahara123"));
+			clientMap.put(Bucket.HELLO, new CouchbaseClient(nodes,
+					"rootbeer-rbms-hello", "mahara123"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(1);
+		}
 	}
-	
+
+	public static CouchbaseClient getClient(Bucket key) {
+		if (clientMap == null) {
+			throw new IllegalStateException("client already closed");
+		}
+		return clientMap.get(key);
+	}
+
 	/**
 	 * データベースとの接続を切る
 	 */
-	public void close() {
+	public static void close() {
 		// Shutdown the client
-		client.shutdown();
+		for (CouchbaseClient client : clientMap.values()) {
+			client.shutdown();
+		}
+		clientMap = null;
 	}
-	
+
 	public static void main(String[] args) throws Exception {
-		Database database = new Database();
-		
-		// Set your first document with a key of "hello" and a value of "couchbase!"
-		database.client.set("hello", "couchbase!").get();
+		// Set your first document with a key of "hello" and a value of
+		// "couchbase!"
+		CouchbaseClient client = Database.getClient(Database.Bucket.HELLO);
+		client.set("hello", "couchbase!");
 
 		// Return the result and cast it to string
-		String result = (String) database.client.get("hello");
+		String result = (String) client.get("hello");
 		System.out.println(result);
 
-		database.close();
+		Database.close();
 	}
 }
