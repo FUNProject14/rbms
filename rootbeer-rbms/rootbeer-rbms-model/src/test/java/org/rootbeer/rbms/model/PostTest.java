@@ -56,6 +56,9 @@ public class PostTest {
 		Post testPostBBBA = new Post("TESTB", "uchiyamaB", testDateB, "parentA");
 		Post testPostBBBB = new Post("TESTB", "uchiyamaB", testDateB, "parentB");	
 		
+		assertThat(dateA, is(not(dateB)));
+		assertThat(new Date(dateA), is(not(new Date(dateB))));
+		
 		assertThat(testPostAAAA, is(testPostAAAA2));
 		assertThat(testPostAAAA, is(not(testPostAAAB)));
 		assertThat(testPostAAAA, is(not(testPostAABA)));
