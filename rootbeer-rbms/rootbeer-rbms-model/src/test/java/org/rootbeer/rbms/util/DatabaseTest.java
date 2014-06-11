@@ -41,7 +41,7 @@ public class DatabaseTest {
 		client.add(MICHIKO, postGson.toJson(testPost));
 		assertThat(postGson.toJson(testPost), is((client.get(MICHIKO))));
 		
-		Post testPostFromJson = postGson.fromJson(postGson.toJson(testPost).toString(), Post.class); 
+		Post testPostFromJson = postGson.fromJson(client.get(MICHIKO).toString(), Post.class); 
 		assertThat(testPost, is(testPostFromJson));
 	}
 }
