@@ -15,7 +15,7 @@ import org.rootbeer.rbms.model.*;
 
 import com.google.gson.*;
 
-public class DatabaseTest {
+public class DatabasePostTest {
 	private static final String MICHIKO = "michiko_oba"; 
 	@Before
 	public void setUp() {
