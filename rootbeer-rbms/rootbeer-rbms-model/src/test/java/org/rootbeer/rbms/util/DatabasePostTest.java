@@ -26,11 +26,7 @@ public class DatabasePostTest {
 	}
 	
 	@Test
-	public void testAccessingAction() {
-	}
-	
-	@Test
-	public void testAccessingPost(){
+	public void testAccessing(){
 		long postTestDate = System.currentTimeMillis();
 		Post testPost = new Post("body", MICHIKO, new Date(postTestDate), "kumar");
 		CouchbaseClient client = getClient(Bucket.POST);
