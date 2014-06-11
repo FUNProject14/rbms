@@ -30,9 +30,7 @@ public class DatabasePostTest {
 		long postTestDate = System.currentTimeMillis();
 		Post testPost = new Post("body", MICHIKO, new Date(postTestDate), "kumar");
 		CouchbaseClient client = getClient(Bucket.POST);
-		Gson postGson = new GsonBuilder()
-		.setDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
-		.create();
+		Gson postGson = ModelUtil.GSON;
 		
 		client.add(MICHIKO, postGson.toJson(testPost));
 		assertThat(postGson.toJson(testPost), is((client.get(MICHIKO))));
