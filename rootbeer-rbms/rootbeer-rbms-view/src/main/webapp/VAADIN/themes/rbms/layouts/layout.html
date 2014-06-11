@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+<meta charset="utf-8">
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+		$(function(){
+			$("div.import").each(function(){
+				var htmlFile = $(this).attr("src");
+				$(this).load(htmlFile);
+			});
+		});
+	</script>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<td>
+				<div class="import" src="Login.html"></div>
+			</td>
+			<td>
+				<div class="import" src="Login.html"></div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
