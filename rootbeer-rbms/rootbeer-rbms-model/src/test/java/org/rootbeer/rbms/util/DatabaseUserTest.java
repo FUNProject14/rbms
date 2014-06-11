@@ -30,7 +30,7 @@ public class DatabaseUserTest {
 	public void testAccessing(){
 		User testUser = new User(MICHIKO, "michiko123", "BOSS");
 		CouchbaseClient client = getClient(Bucket.USER);
-		Gson userGson = new Gson();
+		Gson userGson = ModelUtil.GSON;
 		
 		client.add(MICHIKO, userGson.toJson(testUser));
 		assertThat(userGson.toJson(testUser), is((client.get(MICHIKO))));
