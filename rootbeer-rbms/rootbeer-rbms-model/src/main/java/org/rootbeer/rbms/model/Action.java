@@ -13,7 +13,7 @@ public final class Action {
 	/**
 	 * 行動の種類を示す列挙型クラスです。
 	 */
-	enum Act {
+	public enum Act {
 		/** 購入 */
 		BUY,
 		/** 服用 */
