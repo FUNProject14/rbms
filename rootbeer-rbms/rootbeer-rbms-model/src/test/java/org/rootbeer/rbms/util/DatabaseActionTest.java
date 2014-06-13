@@ -38,9 +38,7 @@ public class DatabaseActionTest {
 				};
 		
 		CouchbaseClient client = getClient(Bucket.ACTION);
-		Gson gson = new GsonBuilder()
-		.setDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
-		.create();
+		Gson gson = ModelUtil.GSON;
 		client.add(MICHIKO, gson.toJson(actions));
 		
 		String gotString = (String) client.get(MICHIKO);
