@@ -30,12 +30,12 @@ public class DatabasePictureTest {
 		long pictureTestDate = System.currentTimeMillis();
 		Picture testPicture = new Picture("path", MICHIKO, "authorUserId", new Date(pictureTestDate));
 		CouchbaseClient client = getClient(Bucket.PICTURE);
-		Gson pictureGson = ModelUtil.GSON;
+		Gson gson = ModelUtil.GSON;
 		
-		client.add(MICHIKO, pictureGson.toJson(testPicture));
-		assertThat(pictureGson.toJson(testPicture), is((client.get(MICHIKO))));
+		client.add(MICHIKO, gson.toJson(testPicture));
+		assertThat(gson.toJson(testPicture), is((client.get(MICHIKO))));
 		
-		Picture testPictureFromJson = pictureGson.fromJson(client.get(MICHIKO).toString(), Picture.class); 
+		Picture testPictureFromJson = gson.fromJson(client.get(MICHIKO).toString(), Picture.class); 
 		assertThat(testPicture, is(testPictureFromJson));
 	}
 }
