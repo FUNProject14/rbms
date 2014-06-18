@@ -28,15 +28,15 @@ public class DatabaseUserTest {
 	
 	@Test
 	public void testAccessing(){
-		User testUser = new User(MICHIKO, "michiko123", "BOSS");
 		CouchbaseClient client = getClient(Bucket.USER);
-		Gson userGson = ModelUtil.GSON;
+		Gson gson = ModelUtil.GSON;
+
+		User boss = new User(MICHIKO, "michiko123", "BOSS");
+		addUser(MICHIKO, boss);
+		assertThat(client.get(MICHIKO).toString(), is(gson.toJson(boss)));
 		
-		client.add(MICHIKO, userGson.toJson(testUser));
-		assertThat(userGson.toJson(testUser), is((client.get(MICHIKO))));
-		
-		User testUserFromJson = userGson.fromJson(client.get(MICHIKO).toString(), User.class);
-		assertThat(testUser, is(testUserFromJson));
+		User boss2 = getUser(MICHIKO);
+		assertThat(boss2, is(boss));
 	}
 
 }

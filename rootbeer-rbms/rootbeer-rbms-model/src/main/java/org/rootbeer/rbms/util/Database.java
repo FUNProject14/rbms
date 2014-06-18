@@ -1,11 +1,16 @@
 package org.rootbeer.rbms.util;
 
+import static org.rootbeer.rbms.util.Database.getClient;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
+import org.rootbeer.rbms.model.User;
+
 import com.couchbase.client.CouchbaseClient;
+import com.google.gson.Gson;
 
 public class Database {
 	private static EnumMap<Bucket, CouchbaseClient> clientMap;
@@ -46,7 +51,7 @@ public class Database {
 		}
 		return clientMap.get(key);
 	}
-
+	
 	/**
 	 * データベースとの接続を切る
 	 */
@@ -56,6 +61,29 @@ public class Database {
 			client.shutdown();
 		}
 		clientMap = null;
+	}
+
+	/**
+	 * ユーザーをデータベースに格納する
+	 * @param userID
+	 * @param user
+	 */
+	public static void addUser(String userID, User user) {
+		CouchbaseClient client = getClient(Bucket.USER);
+		client.add(userID, ModelUtil.GSON.toJson(user));
+	}
+
+	/**
+	 * ユーザーをデータベースから探す
+	 * @param userID
+	 * @return
+	 */
+	public static User getUser(String userID) {
+		CouchbaseClient client = getClient(Bucket.USER);
+		Object o = client.get(userID);
+		if (o == null)
+			return null;
+		return ModelUtil.GSON.fromJson(o.toString(), User.class);
 	}
 
 	public static void main(String[] args) throws Exception {
