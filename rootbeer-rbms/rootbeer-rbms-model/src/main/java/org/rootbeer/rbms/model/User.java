@@ -1,5 +1,8 @@
 package org.rootbeer.rbms.model;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * ユーザーを表すクラスです。
  */
@@ -58,6 +61,12 @@ public final class User {
 		this.fullName = fullName;
 	}
 
+        public static boolean isValidUserId(String userId){
+            Pattern p = Pattern.compile("^\\w{1,16}$");
+            Matcher m = p.matcher(userId);
+            return m.find();
+        }
+       
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null)
