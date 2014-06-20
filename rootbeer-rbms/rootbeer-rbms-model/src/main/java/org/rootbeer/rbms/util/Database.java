@@ -7,6 +7,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
+import org.rootbeer.rbms.model.Post;
 import org.rootbeer.rbms.model.User;
 
 import com.couchbase.client.CouchbaseClient;
@@ -75,7 +76,7 @@ public class Database {
 
 	/**
 	 * ユーザーをデータベースから探す
-	 * @param userID
+	 * @param authorUserID
 	 * @return
 	 */
 	public static User getUser(String userID) {
@@ -84,6 +85,29 @@ public class Database {
 		if (o == null)
 			return null;
 		return ModelUtil.GSON.fromJson(o.toString(), User.class);
+	}
+
+	/**
+	 * ポストをデータベースに格納する
+	 * @param authUserID
+	 * @param post
+	 */
+	public static void addPost(String authorUserID, Post post) {
+		CouchbaseClient client = getClient(Bucket.POST);
+		client.add(authorUserID, ModelUtil.GSON.toJson(post));
+	}
+
+	/**
+	 * ポストをデータベースから探す
+	 * @param authorUserID
+	 * @return
+	 */
+	public static Post getPost(String authorUserID) {
+		CouchbaseClient client = getClient(Bucket.POST);
+		Object o = client.get(authorUserID);
+		if (o == null)
+			return null;
+		return ModelUtil.GSON.fromJson(o.toString(), Post.class);
 	}
 
 	public static void main(String[] args) throws Exception {
