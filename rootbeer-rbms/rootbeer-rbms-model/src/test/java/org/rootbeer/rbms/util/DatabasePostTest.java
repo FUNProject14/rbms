@@ -7,13 +7,9 @@ import java.util.*;
 
 import org.junit.*;
 
-import com.couchbase.client.CouchbaseClient;
-
 import static org.rootbeer.rbms.util.Database.*;
 
 import org.rootbeer.rbms.model.*;
-
-import com.google.gson.*;
 
 public class DatabasePostTest {
 	private static final String MICHIKO = "michiko_oba"; 
