@@ -100,18 +100,17 @@ public class Database {
 		Post[] posts;
 		if (o == null) {
 			posts = new Post[] { post };
+			client.add(authorUserID, ModelUtil.GSON.toJson(posts));
 		} else {
-			posts = (Post[])o;
-			
+			posts = ModelUtil.GSON.fromJson(o.toString(),Post[].class);
+
 			Post[] newPosts = new Post[posts.length + 1];
 			for (int i = 0; i < posts.length; ++i)
 				newPosts[i] = posts[i];
 			newPosts[posts.length] = post;
 
-			client.delete(authorUserID);
-			posts = newPosts;
+			client.replace(authorUserID, ModelUtil.GSON.toJson(newPosts));
 		}
-		client.add(authorUserID, ModelUtil.GSON.toJson(posts));
 	}
 
 	/**

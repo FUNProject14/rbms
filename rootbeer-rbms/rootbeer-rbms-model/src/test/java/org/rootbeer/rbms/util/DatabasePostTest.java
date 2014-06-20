@@ -27,15 +27,16 @@ public class DatabasePostTest {
 	
 	@Test
 	public void testAccessing(){
+		assertThat(getPosts(MICHIKO), is(nullValue()));
 		long postTestDate = System.currentTimeMillis();
 		Post testPost = new Post("body", MICHIKO, new Date(postTestDate), "kumar");
-		CouchbaseClient client = getClient(Bucket.POST);
-		Gson postGson = ModelUtil.GSON;
-		
-		client.add(MICHIKO, postGson.toJson(testPost));
-		assertThat(postGson.toJson(testPost), is((client.get(MICHIKO))));
-		
-		Post testPostFromJson = postGson.fromJson(client.get(MICHIKO).toString(), Post.class); 
-		assertThat(testPost, is(testPostFromJson));
+		Post testPost1 = new Post("body1", MICHIKO, new Date(postTestDate), "kumar");
+		addPost(testPost);
+		addPost(testPost1);
+
+		Post[] testPosts = getPosts(MICHIKO);
+		assertThat(testPosts[0], is(not(nullValue())));
+		assertThat(testPosts[0], is(testPost));
+		assertThat(testPosts[1], is(testPost1));
 	}
 }
