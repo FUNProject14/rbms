@@ -5,6 +5,7 @@ import static org.rootbeer.rbms.util.Database.getClient;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 
 import org.rootbeer.rbms.model.Post;
@@ -94,7 +95,22 @@ public class Database {
 	 */
 	public static void addPost(String authorUserID, Post post) {
 		CouchbaseClient client = getClient(Bucket.POST);
-		client.add(authorUserID, ModelUtil.GSON.toJson(post));
+		Object o = client.get(authorUserID);
+		Post[] posts;
+		if (o == null) {
+			posts = new Post[] { post };
+		} else {
+			posts = (Post[])o;
+			
+			Post[] newPosts = new Post[posts.length + 1];
+			for (int i = 0; i < posts.length; ++i)
+				newPosts[i] = posts[i];
+			newPosts[posts.length] = post;
+
+			client.delete(authorUserID);
+			posts = newPosts;
+		}
+		client.add(authorUserID, ModelUtil.GSON.toJson(posts));
 	}
 
 	/**
@@ -102,12 +118,12 @@ public class Database {
 	 * @param authorUserID
 	 * @return
 	 */
-	public static Post getPost(String authorUserID) {
+	public static Post[] getPosts(String authorUserID) {
 		CouchbaseClient client = getClient(Bucket.POST);
 		Object o = client.get(authorUserID);
 		if (o == null)
 			return null;
-		return ModelUtil.GSON.fromJson(o.toString(), Post.class);
+		return ModelUtil.GSON.fromJson(o.toString(), Post[].class);
 	}
 
 	public static void main(String[] args) throws Exception {
