@@ -93,7 +93,8 @@ public class Database {
 	 * @param authUserID
 	 * @param post
 	 */
-	public static void addPost(String authorUserID, Post post) {
+	public static void addPost(Post post) {
+		String authorUserID = post.getAuthorUserId();
 		CouchbaseClient client = getClient(Bucket.POST);
 		Object o = client.get(authorUserID);
 		Post[] posts;
