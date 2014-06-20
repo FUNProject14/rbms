@@ -76,7 +76,7 @@ public class Database {
 
 	/**
 	 * ユーザーをデータベースから探す
-	 * @param authorUserID
+	 * @param userID
 	 * @return
 	 */
 	public static User getUser(String userID) {
