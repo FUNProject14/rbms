@@ -52,22 +52,19 @@ public class UserTest {
 
     @Test
     public void testValidity() {
-        assertThat(User.isValidUserId("testname"), is(true));
-        assertThat(User.isValidUserId("testName"), is(true));
-        assertThat(User.isValidUserId("testname1"), is(true));
-        assertThat(User.isValidUserId("a"), is(true));
-        assertThat(User.isValidUserId("1"), is(true));
-        assertThat(User.isValidUserId("abcdefghijklmnop"), is(true));
-        assertThat(User.isValidUserId("1234567890123456"), is(true));
-        assertThat(User.isValidUserId("abcdefghij123456"), is(true));
+        String[] trueData = {"testname", "testName", "a", "1", "abcdefghijklmnop"
+                            , "1234567890123456", "abcdefghij123456"
+                            };
+        String[] falseData = {"Ｔestname", "testname１", "テストネーム", "abcdefghijklmnopq", "12345678901234567"
+                            , "良さ👏", "~", "test1&test2", " testname", "test name"
+                            , "testname ", ""
+                             };
         
-        assertThat(User.isValidUserId("Ｔestname"), is(false));
-        assertThat(User.isValidUserId("testname１"), is(false));
-        assertThat(User.isValidUserId("テストネーム"), is(false));
-        assertThat(User.isValidUserId("abcdefghijklmnopq"), is(false));
-        assertThat(User.isValidUserId("12345678901234567"), is(false));
-        assertThat(User.isValidUserId("良さ👏"), is(false));
-        assertThat(User.isValidUserId("~"), is(false));
-        assertThat(User.isValidUserId(""), is(false));
+        for(String trueUserId: trueData){
+            assertThat(User.isValidUserId(trueUserId), is(true));
+        }
+        for(String falseUserId: falseData){
+            assertThat(User.isValidUserId(falseUserId), is(false));
+        }
     }
 }
