@@ -8,7 +8,6 @@
   <description>The system to manage users buying and drinking root beers.</description>
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <checkstyle.config.location><!-- file location --></checkstyle.config.location>
   </properties>
   <modules>
   	<module>rootbeer-rbms-model</module>
