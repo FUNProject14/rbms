@@ -1,8 +1,10 @@
 package org.rootbeer.rbms.logic;
 
+import com.couchbase.client.CouchbaseClient;
 import org.rootbeer.rbms.model.*;
 
 import static org.rootbeer.rbms.util.Database.*;
+import org.rootbeer.rbms.util.ModelUtil;
 /**
  * ユーザ関連のクラスです。
  */
@@ -31,5 +33,17 @@ public final class UserManagement {
         
         User newUser = new User(newUserId, "", "");   
         addUser(newUserId, newUser);
+    }
+    /**
+     * パスワードを設定・変更します
+     * @param userID
+     * @param newPassword 
+     */
+    public static void setPassword(String userID, String newPassword){
+        CouchbaseClient client = getClient(Bucket.USER);
+        User user = getUser(userID);
+        user.setPassword(newPassword);
+        
+        client.replace(userID, ModelUtil.GSON.toJson(user));
     }
 }
