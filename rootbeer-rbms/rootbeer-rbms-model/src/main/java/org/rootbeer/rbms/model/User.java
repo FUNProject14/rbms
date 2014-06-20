@@ -11,13 +11,18 @@ public final class User {
 	private String password;
 	private String fullName;
 
-	public User() {}
-	
+	public User() {
+	}
+
 	/**
 	 * ユーザーID、パスワード、フルネーム、プロフィール画像から、インスタンスを生成します。
-	 * @param userId ユーザーID
-	 * @param password パスワード（必ずハッシュであること）
-	 * @param fullName フルネーム
+	 * 
+	 * @param userId
+	 *            ユーザーID
+	 * @param password
+	 *            パスワード（必ずハッシュであること）
+	 * @param fullName
+	 *            フルネーム
 	 */
 	public User(String userId, String password, String fullName) {
 		this.userId = userId;
@@ -27,6 +32,7 @@ public final class User {
 
 	/**
 	 * ユーザーIDを返します。
+	 * 
 	 * @return ユーザーID
 	 */
 	public String getUserId() {
@@ -35,6 +41,7 @@ public final class User {
 
 	/**
 	 * パスワード（ハッシュ）を返します。
+	 * 
 	 * @return パスワード（ハッシュ）
 	 */
 	public String getPassword() {
@@ -43,12 +50,13 @@ public final class User {
 
 	/**
 	 * フルネームを返します。
+	 * 
 	 * @return フルネーム
 	 */
 	public String getFullName() {
 		return fullName;
 	}
-	
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -61,12 +69,12 @@ public final class User {
 		this.fullName = fullName;
 	}
 
-        public static boolean isValidUserId(String userId){
-            Pattern p = Pattern.compile("^\\w{1,16}$");
-            Matcher m = p.matcher(userId);
-            return m.find();
-        }
-       
+	public static boolean isValidUserId(String userId) {
+		Pattern p = Pattern.compile("^\\w{1,16}$");
+		Matcher m = p.matcher(userId);
+		return m.find();
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null)
@@ -75,12 +83,11 @@ public final class User {
 			return true;
 		if (!(obj instanceof User))
 			return false;
-		User user = (User)obj;
-		return user.userId.equals(userId)
-				&& user.password.equals(password)
+		User user = (User) obj;
+		return user.userId.equals(userId) && user.password.equals(password)
 				&& user.fullName.equals(fullName);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return userId.hashCode();

@@ -53,17 +53,18 @@ public class UserTest {
     @Test
     public void testValidity() {
         String[] trueData = {"testname", "testName", "a", "1", "abcdefghijklmnop"
-                            , "1234567890123456", "abcdefghij123456"
+                            , "1234567890123456", "abcdefghij123456", "test_name"
                             };
         String[] falseData = {"Ｔestname", "testname１", "テストネーム", "abcdefghijklmnopq", "12345678901234567"
                             , "良さ👏", "~", "test1&test2", " testname", "test name"
-                            , "testname ", ""
+                            , "testname ", "", "test-name"
                              };
         
         for(String trueUserId: trueData){
             assertThat(User.isValidUserId(trueUserId), is(true));
         }
         for(String falseUserId: falseData){
+        	// System.err.println(falseUserId);
             assertThat(User.isValidUserId(falseUserId), is(false));
         }
     }
