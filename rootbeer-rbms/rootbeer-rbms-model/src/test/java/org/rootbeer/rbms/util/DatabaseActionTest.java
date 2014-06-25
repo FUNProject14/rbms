@@ -40,13 +40,5 @@ public class DatabaseActionTest {
                 assertThat (testActions[0], is(not(nullValue())));
                 assertThat (testActions[0], is(action1));
                 assertThat (testActions[1], is(action2));
-		
-//		CouchbaseClient client = getClient(Bucket.ACTION);
-//		Gson gson = ModelUtil.GSON;
-//		client.add(MICHIKO, gson.toJson(actions));
-//		
-//		String gotString = (String) client.get(MICHIKO);
-//		Action[] gotActions = gson.fromJson(gotString, Action[].class);
-//		assertThat(Arrays.asList(gotActions), is(Arrays.asList(actions)));
 	}
 }
