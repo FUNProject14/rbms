@@ -32,17 +32,13 @@ public class DatabaseActionTest {
 		long currentDate = System.currentTimeMillis();
 		Action action1 = new Action(Action.Act.BUY, MICHIKO, new Date(currentDate));
 		Action action2 = new Action(Action.Act.DRINK, MICHIKO, new Date(currentDate + 1));
-		Action[] actions = new Action[] {
-				action1,
-				action2
-				};
-		
-		CouchbaseClient client = getClient(Bucket.ACTION);
-		Gson gson = ModelUtil.GSON;
-		client.add(MICHIKO, gson.toJson(actions));
-		
-		String gotString = (String) client.get(MICHIKO);
-		Action[] gotActions = gson.fromJson(gotString, Action[].class);
-		assertThat(Arrays.asList(gotActions), is(Arrays.asList(actions)));
+                
+                addAction(action1);
+                addAction(action2);
+                
+                Action[] testActions = getActions(MICHIKO);
+                assertThat (testActions[0], is(not(nullValue())));
+                assertThat (testActions[0], is(action1));
+                assertThat (testActions[1], is(action2));
 	}
 }
