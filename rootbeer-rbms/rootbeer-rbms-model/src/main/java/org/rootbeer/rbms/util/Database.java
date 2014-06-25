@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
 import org.rootbeer.rbms.model.Action;
+import org.rootbeer.rbms.model.Picture;
 import org.rootbeer.rbms.model.Post;
 import org.rootbeer.rbms.model.User;
 import static org.rootbeer.rbms.util.Database.getClient;
@@ -122,6 +123,43 @@ public class Database {
 		if (o == null)
 			return null;
 		return ModelUtil.GSON.fromJson(o.toString(), Post[].class);
+	}
+	
+	/**
+	 * ピクチャーをデータベースに格納する
+	 * @param picture
+	 */
+	public static void addPicture(Picture picture) {
+		String authorUserID = picture.getAuthorUserId();
+		CouchbaseClient client = getClient(Bucket.PICTURE);
+		Object o = client.get(authorUserID);
+		Picture[] pictures;
+		if (o == null) {
+			pictures = new Picture[] { picture };
+			client.add(authorUserID, ModelUtil.GSON.toJson(pictures));
+		} else {
+			pictures = ModelUtil.GSON.fromJson(o.toString(),Picture[].class);
+
+			Picture[] newPictures = new Picture[pictures.length + 1];
+			for (int i = 0; i < pictures.length; ++i)
+				newPictures[i] = pictures[i];
+			newPictures[pictures.length] = picture;
+
+			client.replace(authorUserID, ModelUtil.GSON.toJson(newPictures));
+		}
+	}
+	
+	/**
+	 * ピクチャーをデータベースから探す
+	 * @param authorUserID
+	 * @return
+	 */
+	public static Picture[] getPictures(String authorUserID) {
+		CouchbaseClient client = getClient(Bucket.PICTURE);
+		Object o = client.get(authorUserID);
+		if (o == null)
+			return null;
+		return ModelUtil.GSON.fromJson(o.toString(), Picture[].class);
 	}
 
         /**

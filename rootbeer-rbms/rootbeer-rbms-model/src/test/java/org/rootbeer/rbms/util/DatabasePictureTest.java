@@ -7,13 +7,9 @@ import java.util.*;
 
 import org.junit.*;
 
-import com.couchbase.client.CouchbaseClient;
-
 import static org.rootbeer.rbms.util.Database.*;
 
 import org.rootbeer.rbms.model.*;
-
-import com.google.gson.*;
 
 public class DatabasePictureTest {
 	private static final String MICHIKO = "michiko_oba"; 
@@ -26,16 +22,21 @@ public class DatabasePictureTest {
 	}
 	
 	@Test
-	public void testAccessing(){
-		long pictureTestDate = System.currentTimeMillis();
-		Picture testPicture = new Picture("path", MICHIKO, "authorUserId", new Date(pictureTestDate));
-		CouchbaseClient client = getClient(Bucket.PICTURE);
-		Gson gson = ModelUtil.GSON;
+	public void testAccessing() {
+		assertThat(getPictures(MICHIKO), is(nullValue()));
 		
-		client.add(MICHIKO, gson.toJson(testPicture));
-		assertThat(gson.toJson(testPicture), is((client.get(MICHIKO))));
+		long TestDate = System.currentTimeMillis();
+		Picture picture = new Picture("choco", "michiko", MICHIKO, new Date(TestDate));
+		Picture picture2 = new Picture("choco2", "michiko2", MICHIKO, new Date(TestDate));
 		
-		Picture testPictureFromJson = gson.fromJson(client.get(MICHIKO).toString(), Picture.class); 
-		assertThat(testPicture, is(testPictureFromJson));
+		
+		addPicture(picture);
+		addPicture(picture2);
+		Picture[] pictures = getPictures(MICHIKO);
+		
+		assertThat(pictures[0], is(not(nullValue())));
+		assertThat(pictures[0], is(picture));
+		assertThat(pictures[1], is(not(nullValue())));
+		assertThat(pictures[1], is(picture2));
 	}
 }
