@@ -34,15 +34,22 @@ public final class UserManagement {
         User newUser = new User(newUserId, "", "");   
         addUser(newUserId, newUser);
     }
+    
     /**
-     * パスワードを設定・変更します
+     * パスワード・フルネームを設定・変更します
      * @param userID
      * @param newPassword 
+     * @param newFullName 
      */
-    public static void setPassword(String userID, String newPassword){
+    public static void setUserInfo(String userID, String newPassword, String newFullName){
         CouchbaseClient client = getClient(Bucket.USER);
         User user = getUser(userID);
-        user.setPassword(newPassword);
+        if(newPassword != null){
+            user.setPassword(newPassword);
+        }
+        if(newFullName != null){
+            user.setFullName(newFullName);
+        }
         
         client.replace(userID, ModelUtil.GSON.toJson(user));
     }
