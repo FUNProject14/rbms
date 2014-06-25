@@ -13,12 +13,10 @@ public final class UserManagement {
     /**
      * 新規アカウントの作成（パスワード未設定）
      * @param newUserId 新規登録するユーザID
-     * @param newFullName 新規登録するフルネーム
      * @throws org.rootbeer.rbms.logic.CreateAccountException
      */
-    public static void createNewAccount(String newUserId, String newFullName) throws CreateAccountException{
+    public static void createNewAccount(String newUserId) throws CreateAccountException{
         assert newUserId != null;
-        assert newFullName != null;
              
         // 重複するユーザIDが存在する場合、例外処理
         User existUser = getUser(newUserId);
@@ -31,7 +29,7 @@ public final class UserManagement {
             throw new CreateAccountException.InvalidUserId();
         }
         
-        User newUser = new User(newUserId, "", newFullName);   
+        User newUser = new User(newUserId, "", "");   
         addUser(newUserId, newUser);
     }
 }
