@@ -1,5 +1,9 @@
 package org.roorbeer.rbms.cli;
 
+import static org.rootbeer.rbms.util.Database.*;
+import org.rootbeer.rbms.model.*;
+import org.rootbeer.rbms.model.Action.Act;
+import java.util.Date;
 
 public class Main {
     public static void main(String[] args){
@@ -11,7 +15,13 @@ public class Main {
         switch (args[0]){
             case "adduser":  
             case "buy":
+            	long dateBuy = System.currentTimeMillis();
+            	Action actionBuy = new Action(Act.BUY, args[1], new Date(dateBuy));
+            	addAction(actionBuy);
             case "drink":
+            	long dateDrink = System.currentTimeMillis();
+            	Action actionDrink = new Action(Act.DRINK, args[1], new Date(dateDrink));
+            	addAction(actionDrink);
             case "getposts":
         }
     }
