@@ -1,18 +1,17 @@
 package org.rootbeer.rbms.util;
 
-import static org.rootbeer.rbms.util.Database.getClient;
-
+import com.couchbase.client.CouchbaseClient;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
-
+import org.rootbeer.rbms.model.Action;
+import org.rootbeer.rbms.model.Picture;
 import org.rootbeer.rbms.model.Post;
 import org.rootbeer.rbms.model.User;
-
-import com.couchbase.client.CouchbaseClient;
-import com.google.gson.Gson;
+import static org.rootbeer.rbms.util.Database.getClient;
 
 public class Database {
 	private static EnumMap<Bucket, CouchbaseClient> clientMap;
@@ -125,7 +124,84 @@ public class Database {
 			return null;
 		return ModelUtil.GSON.fromJson(o.toString(), Post[].class);
 	}
+	
+	/**
+	 * ピクチャーをデータベースに格納する
+	 * @param picture
+	 */
+	public static void addPicture(Picture picture) {
+		String authorUserID = picture.getAuthorUserId();
+		CouchbaseClient client = getClient(Bucket.PICTURE);
+		Object o = client.get(authorUserID);
+		Picture[] pictures;
+		if (o == null) {
+			pictures = new Picture[] { picture };
+			client.add(authorUserID, ModelUtil.GSON.toJson(pictures));
+		} else {
+			pictures = ModelUtil.GSON.fromJson(o.toString(),Picture[].class);
 
+			Picture[] newPictures = new Picture[pictures.length + 1];
+			for (int i = 0; i < pictures.length; ++i)
+				newPictures[i] = pictures[i];
+			newPictures[pictures.length] = picture;
+
+			client.replace(authorUserID, ModelUtil.GSON.toJson(newPictures));
+		}
+	}
+	
+	/**
+	 * ピクチャーをデータベースから探す
+	 * @param authorUserID
+	 * @return
+	 */
+	public static Picture[] getPictures(String authorUserID) {
+		CouchbaseClient client = getClient(Bucket.PICTURE);
+		Object o = client.get(authorUserID);
+		if (o == null)
+			return null;
+		return ModelUtil.GSON.fromJson(o.toString(), Picture[].class);
+	}
+
+        /**
+	 * アクションをデータベースに追加する
+	 * @param action
+	 */
+	public static void addAction(Action action){
+		String actorUserID = action.getActorUserId();
+		CouchbaseClient client = getClient(Bucket.ACTION);
+		Object o = client.get(actorUserID);
+		Action[] actions;
+		if(o == null){
+			actions = new Action[] {action};
+                        client.add(actorUserID, ModelUtil.GSON.toJson(actions));
+		} else {
+			actions = ModelUtil.GSON.fromJson(o.toString(), Action[].class);
+			
+			Action[] newActions = new Action[actions.length + 1];
+			for (int i = 0; i < actions.length; ++i)
+				newActions[i] = actions[i];
+			newActions[actions.length] = action;
+
+			client.replace(actorUserID, ModelUtil.GSON.toJson(newActions));
+		}	
+	}
+	
+	/**
+	 * アクションをデータベースから探す
+	 * @param actorUserID
+	 * @return
+	 */
+	public static Action[] getActions(String actorUserID){
+		CouchbaseClient client = getClient(Bucket.ACTION);
+		Object o = client.get(actorUserID);
+		if(o == null)
+			return null;
+		return ModelUtil.GSON.fromJson(o.toString(), Action[].class);
+	}
+        
+        
+        
+        
 	public static void main(String[] args) throws Exception {
 		// Set your first document with a key of "hello" and a value of
 		// "couchbase!"
