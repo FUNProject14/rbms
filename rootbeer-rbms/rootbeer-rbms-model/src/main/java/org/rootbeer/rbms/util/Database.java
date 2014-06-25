@@ -1,16 +1,20 @@
 package org.rootbeer.rbms.util;
 
 import com.couchbase.client.CouchbaseClient;
+import com.couchbase.client.protocol.views.*;
 import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
+
 import org.rootbeer.rbms.model.Action;
 import org.rootbeer.rbms.model.Picture;
 import org.rootbeer.rbms.model.Post;
 import org.rootbeer.rbms.model.User;
+
 import static org.rootbeer.rbms.util.Database.getClient;
 
 public class Database {
@@ -198,9 +202,36 @@ public class Database {
 			return null;
 		return ModelUtil.GSON.fromJson(o.toString(), Action[].class);
 	}
-        
-        
-        
+
+	/**
+	 * すべてのユーザーのユーザーIDを返す
+	 * @return ユーザーIDの配列
+	 */
+    public static String[] getUserIDs() {
+		CouchbaseClient client = getClient(Bucket.USER);
+		View view = client.getView("dev_userids",  "list_userids");
+		Query query = new Query();
+		ViewResponse viewResponse = client.query(view, query);
+		ArrayList<String> keys = new ArrayList<String>();
+		for (ViewRow vr : viewResponse)
+			keys.add(vr.getKey());
+		return keys.toArray(new String[0]);
+		
+	    /* 対応するビューの定義は、Couchbase ServerのWebUIから
+	     * [views]タブ
+	     * バケツとして[rootbeer-rbms-user]を選ぶ
+	     * [Development views]を押す
+	     * [Create Development view]ダイアログ
+	     * [Design Documument Name]に_design/dev_useridsを、[View Name]にlist_useridsを記入し、[Save]を押す
+	     * [Edit]を押す
+	     * [VIEW CODE]に以下を記入
+	     * function (doc, meta) {
+	     *   if (meta.type === "json") {
+	     *     emit(meta.id, null);
+	     *   }
+	     * }
+	     */
+    }
         
 	public static void main(String[] args) throws Exception {
 		// Set your first document with a key of "hello" and a value of
