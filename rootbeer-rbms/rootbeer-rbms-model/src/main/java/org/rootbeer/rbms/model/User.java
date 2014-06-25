@@ -16,13 +16,9 @@ public final class User {
 
 	/**
 	 * ユーザーID、パスワード、フルネーム、プロフィール画像から、インスタンスを生成します。
-	 * 
-	 * @param userId
-	 *            ユーザーID
-	 * @param password
-	 *            パスワード（必ずハッシュであること）
-	 * @param fullName
-	 *            フルネーム
+	 * @param userId ユーザーID
+	 * @param password パスワード（必ずハッシュであること）
+	 * @param fullName フルネーム
 	 */
 	public User(String userId, String password, String fullName) {
 		this.userId = userId;
@@ -32,7 +28,6 @@ public final class User {
 
 	/**
 	 * ユーザーIDを返します。
-	 * 
 	 * @return ユーザーID
 	 */
 	public String getUserId() {
@@ -41,7 +36,6 @@ public final class User {
 
 	/**
 	 * パスワード（ハッシュ）を返します。
-	 * 
 	 * @return パスワード（ハッシュ）
 	 */
 	public String getPassword() {
@@ -50,7 +44,6 @@ public final class User {
 
 	/**
 	 * フルネームを返します。
-	 * 
 	 * @return フルネーム
 	 */
 	public String getFullName() {
