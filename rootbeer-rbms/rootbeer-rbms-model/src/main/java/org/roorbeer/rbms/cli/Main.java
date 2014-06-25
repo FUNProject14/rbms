@@ -20,8 +20,8 @@ public class Main {
             	addAction(actionBuy);
             case "drink":
             	long dateDrink = System.currentTimeMillis();
-            	Action action = new Action(Act.DRINK, args[1], new Date(dateDrink));
-            	addAction(action);
+            	Action actionDrink = new Action(Act.DRINK, args[1], new Date(dateDrink));
+            	addAction(actionDrink);
             case "getposts":
         }
     }
