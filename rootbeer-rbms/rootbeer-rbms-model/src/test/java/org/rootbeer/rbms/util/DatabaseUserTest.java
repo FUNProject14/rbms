@@ -22,7 +22,7 @@ public class DatabaseUserTest {
 	}
 	
 	@Test
-	public void testAccessing(){
+	public void testAccessing() {
                 assertThat(getUser(MICHIKO), is(nullValue()));
                 
 		User boss = new User(MICHIKO, "michiko123", "BOSS");
@@ -32,5 +32,4 @@ public class DatabaseUserTest {
                 assertThat(boss2, is(not(nullValue())));
 		assertThat(boss2, is(boss));
 	}
-
 }
