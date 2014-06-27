@@ -19,14 +19,16 @@ public class StockManagement {
 		assert ActorId != null;
 		int buyStock  = 0;
 		int drinkStock = 0;
-		
 		Action[] Actions = getActions(ActorId);
 		if(Actions != null){
-			for(int i=0; i < Actions.length; ++i){
-				if(Actions[i].getAct() == Act.BUY){
-					buyStock ++;
-				}else if(Actions[i].getAct() == Act.DRINK){
-					drinkStock ++;
+			for (Action action : Actions){
+				switch (action.getAct()){
+				case BUY:
+					buyStock++;
+					break;
+				case DRINK:
+					drinkStock++;
+					break;
 				}
 			}
 		}
