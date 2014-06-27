@@ -8,7 +8,7 @@ import org.rootbeer.rbms.model.*;
 import org.rootbeer.rbms.util.*;
 import static org.rootbeer.rbms.util.Database.*;
 
-public class SetUserInfoTest {
+public class UserManagementTest {
     private static final String MICHIKO = "michiko_oba"; 
     @Before
     public void setUp() {
@@ -31,7 +31,23 @@ public class SetUserInfoTest {
             assertThat(getUser(MICHIKO).getPassword(), is(password[i/2]));
             assertThat(getUser(MICHIKO).getFullName(), is(fullName[i%2])); 
         }
+    }
+    
+    @Test
+    public void testCreating() throws Exception{
+        String[] exceptionUserID = {"michiko_oba","みちこ"};
+        String[] exceptionMessage = {"既に存在するユーザIDです。", 
+                                     "ユーザIDが無効です。使用できるのは1文字以上16文字以下の半角英数字のみです。"
+                                    };
         
-        
+        createNewAccount(MICHIKO);
+        for(int i=0; i<=1; i++) {
+            try {
+                createNewAccount(exceptionUserID[i]);
+                fail("例外処理に引っかかりませんでした。[ユーザID]"+exceptionUserID[i]);
+            }catch(CreateAccountException e){
+                assertEquals(e.getMessage(), exceptionMessage[i]);
+            }
+        } 
     }
 }
