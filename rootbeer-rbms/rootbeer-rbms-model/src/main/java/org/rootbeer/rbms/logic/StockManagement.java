@@ -13,7 +13,7 @@ public class StockManagement {
 	/**
 	 * ストックの数をカウント
 	 * @param ActorId 本数を数えるアクターID
-	 * @return buyStock-drinkStock 買った数-飲んだ数
+	 * @return buyStock-drinkStock 購入数-服用数
 	 */
 	public static int countStock(String ActorId){
 		assert ActorId != null;
@@ -21,11 +21,13 @@ public class StockManagement {
 		int drinkStock = 0;
 		
 		Action[] Actions = getActions(ActorId);
-		for(int i=0; i < Actions.length; ++i){
-			if(Actions[i].getAct() == Act.BUY){
-				buyStock ++;
-			}else if(Actions[i].getAct() == Act.DRINK){
-				drinkStock ++;
+		if(Actions != null){
+			for(int i=0; i < Actions.length; ++i){
+				if(Actions[i].getAct() == Act.BUY){
+					buyStock ++;
+				}else if(Actions[i].getAct() == Act.DRINK){
+					drinkStock ++;
+				}
 			}
 		}
 		return buyStock-drinkStock;
