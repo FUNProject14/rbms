@@ -3,6 +3,8 @@ package org.rootbeer.rbms.cli;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import org.rootbeer.rbms.logic.CreateAccountException;
@@ -22,6 +24,14 @@ public class Main {
             close();
         }
     }
+    
+    private static class userActionComparator implements Comparator<Action> {
+
+		@Override
+		public int compare(Action userAction1, Action userAction2) {
+			return -userAction1.getActedTime().compareTo(userAction2.getActedTime());
+		}
+	}
     
     public static void main_i(String[] args) throws CreateAccountException{
         if(args.length == 0){
@@ -52,7 +62,7 @@ public class Main {
             			userActions.addAll(Arrays.asList(actions));
             	}
             	
-            	//TODO:userActionsを時刻の逆順にソートする
+            	Collections.sort(userActions, new Main.userActionComparator());
             	
             	for(Action userAction : userActions){
             		StringBuilder b = new StringBuilder();
@@ -70,8 +80,6 @@ public class Main {
             		System.out.println(b);
             	}
             	break;
-                
-                
         }
     }
 }
