@@ -27,7 +27,7 @@ public final class UserManagement {
         }
         
         // ユーザIDが半角英数字で作成されていない, 空文字("")、null文字が含まれている, 1~16文字以内で書かれていない場合、例外処理   
-        if(User.isValidUserId(newUserId)){
+        if(!User.isValidUserId(newUserId)){
             throw new CreateAccountException.InvalidUserId();
         }
         
