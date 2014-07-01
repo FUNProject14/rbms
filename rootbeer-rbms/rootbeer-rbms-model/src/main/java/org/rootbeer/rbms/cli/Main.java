@@ -25,7 +25,7 @@ public class Main {
         }
     }
     
-    private static class userActionComparator implements Comparator<Action> {
+    private static class UserActionComparator implements Comparator<Action> {
 
 		@Override
 		public int compare(Action userAction1, Action userAction2) {
@@ -69,7 +69,7 @@ public class Main {
             			userActions.addAll(Arrays.asList(actions));
             	}
             	
-            	Collections.sort(userActions, new Main.userActionComparator());
+            	Collections.sort(userActions, new Main.UserActionComparator());
             	
             	for(Action userAction : userActions){
             		StringBuilder b = new StringBuilder();
