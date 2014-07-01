@@ -31,7 +31,7 @@ public class DatabasePostTest {
 		addPost(testPost);
 		addPost(testPost1);
 		assertThat(getPosts(MICHIKO, 0, 2), is(not(nullValue())));
-
+		
 		Post[] testPosts = getPosts(MICHIKO, 0, 2);
 		assertThat(testPosts[0], is(testPost1));
 		assertThat(testPosts[1], is(testPost));
