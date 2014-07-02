@@ -41,17 +41,24 @@ public class Main {
         
         switch (args[0]){
             case "adduser":  
-                createNewAccount(args[1]);
+                try{
+                    createNewAccount(args[1]);
+                } catch(CreateAccountException e){
+                    
+                }
+                System.out.println("新しいユーザ"+ args[1] + "が作成されました");
                 break;
             case "buy":
             	long dateBuy = System.currentTimeMillis();
             	Action actionBuy = new Action(Act.BUY, args[1], new Date(dateBuy));
             	addAction(actionBuy);
+                System.out.println(args[1] + "がルートビアを1本買いました");
             	break;
             case "drink":
             	long dateDrink = System.currentTimeMillis();
             	Action actionDrink = new Action(Act.DRINK, args[1], new Date(dateDrink));
             	addAction(actionDrink);
+                System.out.println(args[1] + "がルートビアを1本飲みました");
             	break;
             case "getposts":
             	String[] userIDs = getUserIDs();
@@ -80,6 +87,9 @@ public class Main {
             		System.out.println(b);
             	}
             	break;
+            default:
+                System.out.println(args[0] +"コマンドは存在しません"); 
+                
         }
     }
 }
