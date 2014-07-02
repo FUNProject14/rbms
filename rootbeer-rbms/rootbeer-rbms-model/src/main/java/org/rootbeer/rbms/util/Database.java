@@ -220,7 +220,6 @@ public class Database {
 		ArrayList<String> keys = new ArrayList<String>();
 		for (ViewRow vr : viewResponse){
 			keys.add(vr.getKey());
-			System.err.println(vr.getValue());
 		}
 		return keys.toArray(new String[0]);
 		
