@@ -40,7 +40,7 @@ public class DatabasePostTest {
 		assertThat(overRangePosts[0], is(testPost1));
 		assertThat(overRangePosts[1], is(testPost));
 		assertThat(overRangePosts.length, is(2));
-
+		
 		try{
 			getPosts(MICHIKO, 3, 5);
 		}catch(GetPostsOutOfBoundsException expected){
