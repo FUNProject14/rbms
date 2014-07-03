@@ -9,6 +9,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.rootbeer.rbms.model.Action;
 import org.rootbeer.rbms.model.Picture;
@@ -124,8 +126,9 @@ public class Database {
 	public static Post[] getPosts(String authorUserID) {
 		CouchbaseClient client = getClient(Bucket.POST);
 		Object o = client.get(authorUserID);
-		if (o == null)
+		if (o == null){
 			return null;
+		}
 		return ModelUtil.GSON.fromJson(o.toString(), Post[].class);
 	}
 	
@@ -208,13 +211,16 @@ public class Database {
 	 * @return ユーザーIDの配列
 	 */
     public static String[] getUserIDs() {
+    	//TODO:issue #95
 		CouchbaseClient client = getClient(Bucket.USER);
 		View view = client.getView("dev_userids",  "list_userids");
 		Query query = new Query();
+		query.setStale(Stale.FALSE);
 		ViewResponse viewResponse = client.query(view, query);
 		ArrayList<String> keys = new ArrayList<String>();
-		for (ViewRow vr : viewResponse)
+		for (ViewRow vr : viewResponse){
 			keys.add(vr.getKey());
+		}
 		return keys.toArray(new String[0]);
 		
 	    /* 対応するビューの定義は、Couchbase ServerのWebUIから
@@ -232,7 +238,20 @@ public class Database {
 	     * }
 	     */
     }
-        
+    
+    public static void deleteTestUserData(){
+    	String[] userIds = getUserIDs();
+    	Pattern p = Pattern.compile("^@");
+    	for(String userId : userIds){
+    		Matcher m = p.matcher(userId);
+    		if(m.find()){
+    			getClient(Bucket.ACTION).delete(userId);
+    			getClient(Bucket.PICTURE).delete(userId);
+    			getClient(Bucket.POST).delete(userId);
+    			getClient(Bucket.USER).delete(userId);
+    		}
+    	}
+    }
 	public static void main(String[] args) throws Exception {
 		// Set your first document with a key of "hello" and a value of
 		// "couchbase!"
