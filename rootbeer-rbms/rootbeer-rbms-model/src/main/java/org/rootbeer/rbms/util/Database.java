@@ -135,7 +135,7 @@ public class Database {
 		Post[] getPosts = ModelUtil.GSON.fromJson(o.toString(), Post[].class);
 		if (getPosts.length < srcPosition)
 			throw new GetPostsOutOfBoundsException();
-
+		
 		int length = destPosition - srcPosition;
 		if(getPosts.length - srcPosition < length){
 			length = getPosts.length - srcPosition;
