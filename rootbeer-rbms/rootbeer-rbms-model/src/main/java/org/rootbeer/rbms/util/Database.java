@@ -124,7 +124,7 @@ public class Database {
 	 * @param authorUserID
 	 * @param srcPosition 取得範囲の開始値
 	 * @param destPosition 取得範囲の終了値
-	 * @throws 取得範囲の開始値がポストの総数を超えていたときに投げます
+	 * @throws GetPostsOutOfBoundsException 取得範囲の開始値がポストの総数を超えていたときに投げます
 	 * @return returnPosts
 	 */
 	public static Post[] getPosts(String authorUserID, int srcPosition, int destPosition) throws GetPostsOutOfBoundsException{
