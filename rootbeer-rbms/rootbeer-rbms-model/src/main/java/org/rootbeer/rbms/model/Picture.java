@@ -10,6 +10,7 @@ public final class Picture {
 	private String description;
 	private String authorUserId;
 	private Date uploadedTime;
+        private byte[] imageData;
 	
 	public Picture() {}
 	
@@ -19,12 +20,14 @@ public final class Picture {
 	 * @param description 説明文
 	 * @param authorUserId 撮影者のユーザID
 	 * @param uploadedTime 投稿された時刻
+         * @param imageData 画像のバイナリデータ
 	 */
-	public Picture(String path, String description, String authorUserId, Date uploadedTime) {
+	public Picture(String path, String description, String authorUserId, Date uploadedTime, byte[] imageData) {
 		this.path = path;
 		this.description = description;
 		this.authorUserId = authorUserId;
 		this.uploadedTime = new Date(uploadedTime.getTime());
+                this.imageData = imageData.clone();
 	}
 
 	/**
@@ -58,6 +61,10 @@ public final class Picture {
 	public Date getUploadedTime() {
 		return new Date(uploadedTime.getTime());
 	}
+        
+        public byte[] getImageData() {
+                return imageData.clone();
+        }
 	
 	public void setPath(String path) {
 		this.path = path;
@@ -74,6 +81,10 @@ public final class Picture {
 	public void setUploadedTime(Date uploadedTime) {
 		this.uploadedTime = uploadedTime;
 	}
+        
+        public void setImageData(byte[] imageData) {
+            this.imageData = imageData.clone();
+        }
 
 	@Override
 	public boolean equals(Object obj){
@@ -90,7 +101,8 @@ public final class Picture {
 		return pic.path.equals(path)
 				&& pic.description.equals(description)
 				&& pic.authorUserId.equals(authorUserId)
-				&& pic.uploadedTime.equals(uploadedTime);
+				&& pic.uploadedTime.equals(uploadedTime)
+                                && pic.imageData.equals(imageData);
 	}
 	
 	@Override
