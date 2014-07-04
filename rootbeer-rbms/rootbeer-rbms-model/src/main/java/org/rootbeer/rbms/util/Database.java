@@ -121,27 +121,28 @@ public class Database {
 
 	/**
 	 * ポストをデータベースから探す
+	 * 指定範囲の終了値がポストの総数を超えていたとき、指定範囲の開始値からポストの一番後ろまでを取り出す
 	 * @param authorUserID
-	 * @param srcPosition 取得範囲の開始値
-	 * @param destPosition 取得範囲の終了値
-	 * @throws GetPostsOutOfBoundsException 取得範囲の開始値がポストの総数を超えていたときに投げます
+	 * @param startPosition 取得範囲の開始値
+	 * @param endPosition 取得範囲の終了値
+	 * @throws GetPostsOutOfBoundsException 取得範囲の開始値がポストの総数を超えていたときに投げる
 	 * @return returnPosts
 	 */
-	public static Post[] getPosts(String authorUserID, int srcPosition, int destPosition) throws GetPostsOutOfBoundsException{
+	public static Post[] getPosts(String authorUserID, int startPosition, int endPosition) throws GetPostsOutOfBoundsException{
 		CouchbaseClient client = getClient(Bucket.POST);
 		Object o = client.get(authorUserID);
 		if (o == null)
 			return null;
 		Post[] getPosts = ModelUtil.GSON.fromJson(o.toString(), Post[].class);
-		if (getPosts.length < srcPosition)
+		if (getPosts.length < startPosition)
 			throw new GetPostsOutOfBoundsException();
 		
-		int length = destPosition - srcPosition;
-		if(getPosts.length - srcPosition < length){
-			length = getPosts.length - srcPosition;
+		int length = endPosition - startPosition;
+		if(getPosts.length - startPosition < length){
+			length = getPosts.length - startPosition;
 		}
 		Post[] returnPosts = new Post[length];
-		System.arraycopy(getPosts, srcPosition, returnPosts, 0, length);
+		System.arraycopy(getPosts, startPosition, returnPosts, 0, length);
 		return returnPosts;
 	}
 	
