@@ -11,6 +11,7 @@ import org.junit.*;
 
 import static org.rootbeer.rbms.util.Database.*;
 
+import org.rootbeer.rbms.logic.GetPostsOutOfBoundsException;
 import org.rootbeer.rbms.model.*;
 import org.rootbeer.rbms.model.Action.Act;
 import org.rootbeer.rbms.util.Database.Bucket;
@@ -65,7 +66,7 @@ public class DatabaseUserTest {
 		}
 	}
 	@Test
-	public void testDeleteTestUserData(){
+	public void testDeleteTestUserData() throws GetPostsOutOfBoundsException{
 		long date = System.currentTimeMillis();
 		User user = new User("@testUser", "", "");
 		Post post = new Post("body", "@testUser", new Date(date));
@@ -78,7 +79,7 @@ public class DatabaseUserTest {
 		addPicture(picture);
 
 		User testUserA = getUser("@testUser");
-		Post[] testPostsA = getPosts("@testUser");
+		Post[] testPostsA = getPosts("@testUser", 0, 100);
 		Action[] testActionsA = getActions("@testUser");
 		Picture[] testPicturesA = getPictures("@testUser");
 		assertThat(testUserA.getUserId(), is("@testUser"));
@@ -94,7 +95,7 @@ public class DatabaseUserTest {
 		}
 		
 		assertThat(getUser("@testUser"), is(nullValue()));
-		assertThat(getPosts("@testUser"), is(nullValue()));
+		assertThat(getPosts("@testUser", 0, 100), is(nullValue()));
 		assertThat(getActions("@testUser"), is(nullValue()));
 		assertThat(getPictures("@testUser"), is(nullValue()));
 	}

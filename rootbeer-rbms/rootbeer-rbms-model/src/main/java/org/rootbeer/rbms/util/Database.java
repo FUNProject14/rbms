@@ -12,6 +12,7 @@ import java.util.EnumMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.rootbeer.rbms.logic.GetPostsOutOfBoundsException;
 import org.rootbeer.rbms.model.Action;
 import org.rootbeer.rbms.model.Picture;
 import org.rootbeer.rbms.model.Post;
@@ -110,26 +111,39 @@ public class Database {
 			posts = ModelUtil.GSON.fromJson(o.toString(),Post[].class);
 
 			Post[] newPosts = new Post[posts.length + 1];
-			for (int i = 0; i < posts.length; ++i)
-				newPosts[i] = posts[i];
-			newPosts[posts.length] = post;
-
+			newPosts[0] = post;
+			for (int i = 1; i <= posts.length; ++i)
+				newPosts[i] = posts[i-1];
+			
 			client.replace(authorUserID, ModelUtil.GSON.toJson(newPosts));
 		}
 	}
 
 	/**
 	 * ポストをデータベースから探す
+	 * 指定範囲の終了値がポストの総数を超えていたとき、指定範囲の開始値からポストの一番後ろまでを取り出す
 	 * @param authorUserID
-	 * @return
+	 * @param startPosition 取得範囲の開始値
+	 * @param endPosition 取得範囲の終了値
+	 * @throws GetPostsOutOfBoundsException 取得範囲の開始値がポストの総数を超えていたときに投げる
+	 * @return returnPosts
 	 */
-	public static Post[] getPosts(String authorUserID) {
+	public static Post[] getPosts(String authorUserID, int startPosition, int endPosition) throws GetPostsOutOfBoundsException{
 		CouchbaseClient client = getClient(Bucket.POST);
 		Object o = client.get(authorUserID);
-		if (o == null){
+		if (o == null)
 			return null;
+		Post[] getPosts = ModelUtil.GSON.fromJson(o.toString(), Post[].class);
+		if (getPosts.length < startPosition)
+			throw new GetPostsOutOfBoundsException();
+		
+		int length = endPosition - startPosition;
+		if(getPosts.length - startPosition < length){
+			length = getPosts.length - startPosition;
 		}
-		return ModelUtil.GSON.fromJson(o.toString(), Post[].class);
+		Post[] returnPosts = new Post[length];
+		System.arraycopy(getPosts, startPosition, returnPosts, 0, length);
+		return returnPosts;
 	}
 	
 	/**
