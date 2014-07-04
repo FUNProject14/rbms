@@ -3,11 +3,14 @@ package org.rootbeer.rbms.logic;
 import org.rootbeer.rbms.model.Action;
 import org.rootbeer.rbms.model.Action.Act;
 import static org.rootbeer.rbms.util.Database.*;
+import org.rootbeer.rbms.model.Action;
+        
+        
 /**
  * アクション関連のクラスです。
  */
-public class StockManagement {
-	public StockManagement(){
+public class ActionManagement {
+	public ActionManagement(){
 	}
 	
 	/**
@@ -34,4 +37,29 @@ public class StockManagement {
 		}
 		return buyStock-drinkStock;
 	}
+        /**
+         * ストック数を考慮しルートビアを追加する
+         * @param action
+         * @return 100本以下でBUYまたは１本以上でDRINKはtrueを返す　それ以外はfalseを返す
+         */       
+        public static boolean addActionWithChecking(Action action){
+                int stock = countStock(action.getActorUserId());
+                switch(action.getAct()){
+                    case BUY:
+                        if(stock <= 100){
+                            addAction(action);
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case DRINK:
+                        if(stock >= 1){
+                            addAction(action);
+                            return true;
+                        } else {
+                            return false;
+                        }
+                }
+                return false;
+        }
 }
