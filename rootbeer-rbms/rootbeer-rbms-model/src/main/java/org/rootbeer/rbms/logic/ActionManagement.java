@@ -46,7 +46,7 @@ public class ActionManagement {
                 int stock = countStock(action.getActorUserId());
                 switch(action.getAct()){
                     case BUY:
-                        if(stock <= 100){
+                        if(stock <= 10000){
                             addAction(action);
                             return true;
                         } else {
