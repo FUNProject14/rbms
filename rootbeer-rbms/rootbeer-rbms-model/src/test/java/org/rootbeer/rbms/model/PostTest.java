@@ -35,7 +35,7 @@ public class PostTest {
 	@Test
 	public void testEquality(){
 		long testDateA = System.currentTimeMillis();
-		long testDateB = System.currentTimeMillis()+1;
+		long testDateB = System.currentTimeMillis()+1000;
 		Post testPostAAAA = new Post("TESTA", "uchiyamaA", new Date(testDateA), "parentA");
 		Post testPostAAAA2 = new Post("TESTA", "uchiyamaA", new Date(testDateA), "parentA");
 		Post testPostAAAB = new Post("TESTA", "uchiyamaA", new Date(testDateA), "parentB");
