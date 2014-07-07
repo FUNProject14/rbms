@@ -40,7 +40,7 @@ public class ActionManagement {
         /**
          * ストック数を考慮しルートビアを追加する
          * @param action
-         * @return 100本以下でBUYまたは１本以上でDRINKはtrueを返す　それ以外はfalseを返す
+         * @return 10000本以下でBUYまたは１本以上でDRINKはtrueを返す　それ以外はfalseを返す
          */       
         public static boolean addActionWithChecking(Action action){
                 int stock = countStock(action.getActorUserId());
