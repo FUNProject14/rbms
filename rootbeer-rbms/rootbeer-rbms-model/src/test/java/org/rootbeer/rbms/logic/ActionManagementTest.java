@@ -8,10 +8,10 @@ import static org.junit.Assert.*;
 import org.rootbeer.rbms.model.*;
 import org.rootbeer.rbms.model.Action.Act;
 import org.rootbeer.rbms.util.Database;
-import static org.rootbeer.rbms.logic.StockManagement.countStock;
+import static org.rootbeer.rbms.logic.ActionManagement.countStock;
 import static org.rootbeer.rbms.util.Database.*;
 
-public class StockManagementTest {
+public class ActionManagementTest {
 	private static final String MICHIKO = "michiko_oba"; 
     @Before
     public void setUp() {

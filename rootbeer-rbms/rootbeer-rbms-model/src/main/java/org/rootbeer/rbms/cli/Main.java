@@ -10,7 +10,7 @@ import java.util.Date;
 import org.rootbeer.rbms.logic.CreateAccountException;
 
 import static org.rootbeer.rbms.logic.UserManagement.createNewAccount;
-
+import static org.rootbeer.rbms.logic.ActionManagement.addActionWithChecking;
 import org.rootbeer.rbms.model.*;
 import org.rootbeer.rbms.model.Action.Act;
 
@@ -51,14 +51,25 @@ public class Main {
             case "buy":
             	long dateBuy = System.currentTimeMillis();
             	Action actionBuy = new Action(Act.BUY, args[1], new Date(dateBuy));
-            	addAction(actionBuy);
-                System.out.println(args[1] + "がルートビアを1本買いました");
+            	boolean buyresult;
+                buyresult = addActionWithChecking(actionBuy);
+                if(buyresult){
+                    System.out.println(args[1] + "がルートビアを1本買いました");
+                } else {
+                    System.out.println("ルートビアを追加できませんでした");
+                }
             	break;
             case "drink":
             	long dateDrink = System.currentTimeMillis();
             	Action actionDrink = new Action(Act.DRINK, args[1], new Date(dateDrink));
-            	addAction(actionDrink);
-                System.out.println(args[1] + "がルートビアを1本飲みました");
+                boolean drinkresult;
+                drinkresult = addActionWithChecking(actionDrink);
+            	if(drinkresult){
+                    addAction(actionDrink);
+                    System.out.println(args[1] + "はルートビアを1本飲みました");
+                } else {
+                    System.out.println("ルートビアがありません");
+                }
             	break;
             case "getposts":
             	String[] userIDs = getUserIDs();
