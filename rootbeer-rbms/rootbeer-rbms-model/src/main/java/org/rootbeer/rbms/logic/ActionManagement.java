@@ -38,28 +38,25 @@ public class ActionManagement {
 		return buyStock-drinkStock;
 	}
         /**
-         * ストック数を考慮しルートビアを追加する
-         * @param action
-         * @return 10000本以下でBUYまたは１本以上でDRINKはtrueを返す　それ以外はfalseを返す
+         * ストック数を考慮し、ルートビアを飲む、あるいは買うという動作をデータベースに追加する
+         * @param action 追加するAction
+         * @throws AddActionIllegalStateException 現在の所持数(在庫)が10000本より多い時にBUYまたは0本以下でDRINKした時
          */       
-        public static boolean addActionWithChecking(Action action){
+        public static void addActionWithChecking(Action action) throws AddActionIllegalStateException {
                 int stock = countStock(action.getActorUserId());
                 switch(action.getAct()){
                     case BUY:
-                        if(stock <= 10000){
-                            addAction(action);
-                            return true;
-                        } else {
-                            return false;
+                        if (10000 < stock) {
+                            throw new AddActionIllegalStateException("ルートビアの在庫が10000本より多い状態で購入しました");
                         }
+                        addAction(action);
+                        break;
                     case DRINK:
-                        if(stock >= 1){
-                            addAction(action);
-                            return true;
-                        } else {
-                            return false;
+                        if(stock < 1){
+                            throw new AddActionIllegalStateException("ルートビアの在庫がない状態で飲みました");
                         }
+                        addAction(action);
+                        break;
                 }
-                return false;
         }
 }

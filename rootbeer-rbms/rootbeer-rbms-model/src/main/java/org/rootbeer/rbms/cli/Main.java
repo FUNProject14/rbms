@@ -11,6 +11,7 @@ import org.rootbeer.rbms.logic.CreateAccountException;
 
 import static org.rootbeer.rbms.logic.UserManagement.createNewAccount;
 import static org.rootbeer.rbms.logic.ActionManagement.addActionWithChecking;
+import org.rootbeer.rbms.logic.AddActionIllegalStateException;
 import org.rootbeer.rbms.model.*;
 import org.rootbeer.rbms.model.Action.Act;
 
@@ -51,24 +52,21 @@ public class Main {
             case "buy":
             	long dateBuy = System.currentTimeMillis();
             	Action actionBuy = new Action(Act.BUY, args[1], new Date(dateBuy));
-            	boolean buyresult;
-                buyresult = addActionWithChecking(actionBuy);
-                if(buyresult){
+            	try {
+                    addActionWithChecking(actionBuy);
                     System.out.println(args[1] + "がルートビアを1本買いました");
-                } else {
-                    System.out.println("ルートビアを追加できませんでした");
+                } catch (AddActionIllegalStateException e) {
+                    System.out.println("ルートビアを追加できませんでした: " + e.getMessage());
                 }
             	break;
             case "drink":
             	long dateDrink = System.currentTimeMillis();
             	Action actionDrink = new Action(Act.DRINK, args[1], new Date(dateDrink));
-                boolean drinkresult;
-                drinkresult = addActionWithChecking(actionDrink);
-            	if(drinkresult){
-                    addAction(actionDrink);
+                try {
+                    addActionWithChecking(actionDrink);
                     System.out.println(args[1] + "はルートビアを1本飲みました");
-                } else {
-                    System.out.println("ルートビアがありません");
+                } catch (AddActionIllegalStateException e) {
+                    System.out.println("ルートビアを飲めませんでした: " + e.getMessage());
                 }
             	break;
             case "getposts":
