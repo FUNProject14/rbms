@@ -3,11 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>jp.ac.fun.rootbeer</groupId>
+    <groupId>org.rootbeer.rbms</groupId>
     <artifactId>rootbeer-rbms</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>jp.ac.fun.rootbeer.rbms.model</groupId>
+  <groupId>org.rootbeer.rbms.model</groupId>
   <artifactId>rootbeer-rbms-model</artifactId>
   <name>rootbeer-rbms-model</name>
   <url>http://maven.apache.org</url>
