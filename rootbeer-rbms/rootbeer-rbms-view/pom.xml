@@ -6,7 +6,7 @@
             <groupId>org.rootbeer.rbms</groupId>
             <version>0.0.1-SNAPSHOT</version>
         </parent>
-	<groupId>org.rootbeer.rbms.viewr</groupId>
+	<groupId>org.rootbeer.rbms.view</groupId>
 	<artifactId>rootbeer-rbms-view</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
