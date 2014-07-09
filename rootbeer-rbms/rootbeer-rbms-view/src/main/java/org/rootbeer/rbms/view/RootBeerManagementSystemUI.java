@@ -33,6 +33,7 @@ public class RootBeerManagementSystemUI extends UI {
         navigator.addView("", new StartView());
         navigator.addView(LOGIN_VIEW, new LoginView());
         navigator.addView(USER_VIEW,  new UserView());
+        navigator.addView(ACTION_VIEW, new ActionView());
     }
     
 }
