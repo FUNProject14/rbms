@@ -1,13 +1,12 @@
 package org.rootbeer.rbms.view;
 
 import com.vaadin.annotations.*;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.UserError;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 
 import java.util.Date;
-import javax.servlet.annotation.WebServlet;
 import org.rootbeer.rbms.logic.ActionManagement;
 import org.rootbeer.rbms.logic.AddActionIllegalStateException;
 import org.rootbeer.rbms.util.Database;
@@ -15,21 +14,17 @@ import org.rootbeer.rbms.util.Database;
 // import org.rootbeer.rbms.model.*;
 
 
-@Title("Hello Window")
-public class Action extends UI {
+/**
+ * 飲む、買うと言ったActionを表示するビューです。
+ */
+@Title("RBMS - Action log")
+public class ActionView extends VerticalLayout implements View {
     
+    LoginView loginView = new LoginView();
     Table actionLogTable = new Table("ACTION LOG");
     Label remainRootBeerLabel = new Label();
 
-
-    @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = Action.class)
-    public static class Servlet extends VaadinServlet {
-    }
-    
-    @Override
-    protected void init(VaadinRequest request) {
-        
+    public ActionView() {
         // Initialize Table
         actionLogTable.addContainerProperty("UserID", String.class, null);
         actionLogTable.addContainerProperty("Act", String.class, null);
@@ -38,12 +33,6 @@ public class Action extends UI {
         // refresh table
         refreshActionLogTable("michiko2");
         refreshRemainRootBeer("michiko2");
-        
-        // Create the content root layout for the UI
-        VerticalLayout content = new VerticalLayout();
-        setContent(content);
-
-        
         
         // Drink rootbeer!
         final Button drinkButton = new Button("Drink");
@@ -82,15 +71,13 @@ public class Action extends UI {
         });
         
         // Display Components
-        content.addComponent(remainRootBeerLabel);
-        content.addComponent(buyButton);
-        content.addComponent(drinkButton);
-        content.addComponent(actionLogTable);
+        addComponent(remainRootBeerLabel);
+        addComponent(buyButton);
+        addComponent(drinkButton);
+        addComponent(actionLogTable);
     }
     
-    
-    
-    void refreshActionLogTable (String userId) {
+    private void refreshActionLogTable (String userId) {
         actionLogTable.removeAllItems();
         for(org.rootbeer.rbms.model.Action action : Database.getActions(userId) ){
             actionLogTable.addItem(new Object[] {action.getActorUserId(), action.getAct().toString(), action.getActedTime().toString()}, null);
@@ -98,7 +85,12 @@ public class Action extends UI {
         actionLogTable.sort(new Object[] {"Date", "UserID", "Act"}, new boolean[] {false, true, true});
     }
     
-    void refreshRemainRootBeer (String userId) {
+    private void refreshRemainRootBeer (String userId) {
         remainRootBeerLabel.setValue(String.valueOf(ActionManagement.countStock(userId)));
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
