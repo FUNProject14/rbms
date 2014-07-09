@@ -2,7 +2,11 @@ package org.rootbeer.rbms.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -11,7 +15,9 @@ import com.vaadin.ui.VerticalLayout;
 public class StartView extends VerticalLayout implements View {
 
     public StartView() {
-        addComponent(new Label("ルートビア管理システムへようこそ"));
+        addComponent(new Label("<h1>ルートビア管理システム</h1>", ContentMode.HTML));
+        addComponent(new LoginView());
+        
     }
     
     @Override
