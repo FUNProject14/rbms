@@ -32,15 +32,16 @@ public class PictureManagement {
 	
 	/**
 	 * @param imagePath 画像のパス
+	 * @throws FileNotFoundException 画像のパスが指定されていないときに投げる
 	 * 
 	 */
-	public static byte[] getImageBytes(String imagePath){
+	public static byte[] getImageBytes(String imagePath) throws FileNotFoundException{
 		File imageFile = new File(imagePath);
 		BufferedImage bufferedImage;
 		try {
 			bufferedImage = ImageIO.read(imageFile);
 		} catch (IOException e) {
-			return null;
+			throw new FileNotFoundException();
 		}
 
 		WritableRaster raster = bufferedImage.getRaster();
