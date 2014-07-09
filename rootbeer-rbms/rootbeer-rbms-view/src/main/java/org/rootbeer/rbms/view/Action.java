@@ -95,6 +95,7 @@ public class Action extends UI {
         for(org.rootbeer.rbms.model.Action action : Database.getActions(userId) ){
             actionLogTable.addItem(new Object[] {action.getActorUserId(), action.getAct().toString(), action.getActedTime().toString()}, null);
         }
+        actionLogTable.sort(new Object[] {"Date", "UserID", "Act"}, new boolean[] {false, true, true});
     }
     
     void refreshRemainRootBeer (String userId) {
