@@ -42,6 +42,7 @@ public class LoginView extends GridLayout implements View {
                 } catch (LoginException ex) {
                     loginButton.setComponentError(new UserError(ex.getMessage()));
                 }
+                getUI().getNavigator().navigateTo("myuserview");
             }
         });
         

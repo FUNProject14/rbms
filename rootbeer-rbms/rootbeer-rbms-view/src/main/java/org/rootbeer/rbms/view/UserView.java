@@ -4,6 +4,7 @@ import com.vaadin.navigator.*;
 import com.vaadin.ui.*;
 import org.rootbeer.rbms.logic.ActionManagement;
 import org.rootbeer.rbms.view.util.LoginSession;
+import org.rootbeer.rbms.util.Database;
 
 /**
  * ユーザページを表示するビューです
@@ -22,7 +23,11 @@ public class UserView extends GridLayout implements View {
 
     public UserView() {
 
-        userId = LoginSession.getLoginUserId();
+        //userId = LoginSession.getLoginUserId();
+        userId = "michiko2";
+        
+        remainRootBeerLabel = new Label();
+        
         refreshRemainRootBeer(userId);
 
         setRows(2);

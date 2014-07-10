@@ -16,6 +16,7 @@ public class RootBeerManagementSystemUI extends UI {
     protected static final String LOGIN_VIEW = "login";
     protected static final String ACTION_VIEW = "action";
     protected static final String USER_VIEW = "userview";
+    protected static final String MYUSER_VIEW = "myuserview";
 
     @WebServlet(value = "/*", asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = RootBeerManagementSystemUI.class)
@@ -33,7 +34,7 @@ public class RootBeerManagementSystemUI extends UI {
         navigator.addView("", new StartView());
         navigator.addView(LOGIN_VIEW, new LoginView());
         navigator.addView(USER_VIEW,  new UserView());
-        navigator.addView(ACTION_VIEW, new ActionView());
+        navigator.addView(MYUSER_VIEW, new MyUserView());
     }
     
 }

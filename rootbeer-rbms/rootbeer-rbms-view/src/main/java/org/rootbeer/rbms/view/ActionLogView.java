@@ -1,7 +1,9 @@
 package org.rootbeer.rbms.view;
 
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
+import org.rootbeer.rbms.logic.ActionManagement;
 import org.rootbeer.rbms.util.Database;
 
 /**
@@ -10,6 +12,7 @@ import org.rootbeer.rbms.util.Database;
 public class ActionLogView extends VerticalLayout {
 
     Table actionLogTable = new Table("ACTION LOG");
+    Label remainRootBeerLabel = new Label();
     private String userId;
 
     public ActionLogView() {
@@ -23,10 +26,10 @@ public class ActionLogView extends VerticalLayout {
 
         refreshActionLogTable(userId);
         addComponent(actionLogTable);
-        
+
     }
-    
-    public void setUserId(String userId){
+
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
