@@ -1,5 +1,6 @@
 package org.rootbeer.rbms.view;
 
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.UserError;
@@ -23,6 +24,9 @@ public class LoginView extends GridLayout implements View {
     private final Button loginButton;
 
     public LoginView() {
+        if (LoginSession.isLoggedIn()) {
+            
+        }
         // ユーザーID入力領域を設定
         userIdField = new TextField("ユーザーID:");
         userIdField.setRequired(true);
@@ -33,6 +37,7 @@ public class LoginView extends GridLayout implements View {
 
         // ログインボタンを作る
         loginButton = new Button("ログイン");
+        loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         loginButton.addClickListener(new Button.ClickListener() {
 
             @Override
