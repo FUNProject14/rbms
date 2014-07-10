@@ -15,9 +15,11 @@ public class ActionLogView extends VerticalLayout {
     Label remainRootBeerLabel = new Label();
     private String userId;
 
-    public ActionLogView() {
+    public ActionLogView(String userId) {
 
         setSizeFull();
+        
+        setUserId(userId);
 
         // Initialize Table
         actionLogTable.addContainerProperty("UserID", String.class, null);
@@ -29,11 +31,11 @@ public class ActionLogView extends VerticalLayout {
 
     }
 
-    public void setUserId(String userId) {
+    private void setUserId(String userId) {
         this.userId = userId;
     }
 
-    private void refreshActionLogTable(String userId) {
+    public void refreshActionLogTable(String userId) {
         actionLogTable.removeAllItems();
         for (org.rootbeer.rbms.model.Action action : Database.getActions(userId)) {
             actionLogTable.addItem(new Object[]{action.getActorUserId(), action.getAct().toString(), action.getActedTime().toString()}, null);

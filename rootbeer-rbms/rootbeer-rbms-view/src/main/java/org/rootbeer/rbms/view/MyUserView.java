@@ -15,9 +15,9 @@ import org.rootbeer.rbms.view.util.LoginSession;
  */
 public class MyUserView extends GridLayout implements View {
 
-    private final Panel remainRootBeerPanel;
-    private final String userId;
-    private final Label haveRootBeer;
+    private final GridLayout remainRootBeerLayout;
+    private String userId;
+    private ActionLogView UserAction;
     private final Button buyButton;
     private final Button drinkButton;
     private final TabSheet userTab;
@@ -28,15 +28,13 @@ public class MyUserView extends GridLayout implements View {
 
     public MyUserView() {
 
-        setRows(2);
+        setRows(1);
         setColumns(3);
 
-        userId = LoginSession.getLoginUserId();
-        remainRootBeerPanel = new Panel();
-        refreshRemainRootBeer(userId);
+        setSizeFull();
 
-        haveRootBeer = new Label("残り" + remainRootBeerLabel + "本");
-        remainRootBeerPanel.setContent(haveRootBeer);
+        remainRootBeerLayout = new GridLayout(2, 3);
+        remainRootBeerLayout.addComponent(remainRootBeerLabel, 0, 0, 1, 0);
 
         buyButton = new Button("買う");
         buyButton.addClickListener(new Button.ClickListener() {
@@ -48,13 +46,15 @@ public class MyUserView extends GridLayout implements View {
                 );
                 try {
                     ActionManagement.addActionWithChecking(action);
-                    refreshRemainRootBeer("michiko2");
+                    refreshRemainRootBeer(userId);
+                    UserAction.refreshActionLogTable(userId);
                 } catch (AddActionIllegalStateException e) {
                     buyButton.setComponentError(new UserError(e.getMessage()));
                 }
             }
         });
-        remainRootBeerPanel.setContent(buyButton);
+        remainRootBeerLayout.addComponent(buyButton, 1, 1);
+
         drinkButton = new Button("飲む");
         drinkButton.addClickListener(new Button.ClickListener() {
             @Override
@@ -64,43 +64,44 @@ public class MyUserView extends GridLayout implements View {
                 try {
                     ActionManagement.addActionWithChecking(action);
                     refreshRemainRootBeer(userId);
+                    UserAction.refreshActionLogTable(userId);
                 } catch (AddActionIllegalStateException e) {
                     drinkButton.setComponentError(new UserError(e.getMessage()));
                 }
             }
         });
-        remainRootBeerPanel.setContent(drinkButton);
+        remainRootBeerLayout.addComponent(drinkButton, 1, 2);
 
-        addComponent(remainRootBeerPanel, 0, 1);
+        addComponent(remainRootBeerLayout, 0, 0);
+        remainRootBeerLayout.setSizeFull();
 
         userTab = new TabSheet();
         userTab.setSizeFull();
-        addComponent(userTab, 1, 1);
+        addComponent(userTab, 1, 0);
 
-        //log表示
         logTab = new VerticalLayout();
-        ActionLogView UserAction = new ActionLogView();
-        UserAction.setUserId(userId);
-        logTab.addComponent(UserAction);
-        logTab.setSizeFull();
-        userTab.addTab(logTab, "Log");
-
-        //Graph表示
         graphTab = new VerticalLayout();
-        userTab.addTab(graphTab, "Graph");
-
-        //Album表示
         albumTab = new VerticalLayout();
+        userTab.addTab(logTab, "Log");
+        userTab.addTab(graphTab, "Graph");
         userTab.addTab(albumTab, "Album");
 
     }
 
     private void refreshRemainRootBeer(String userId) {
-        remainRootBeerLabel.setValue(String.valueOf(ActionManagement.countStock(userId)));
+        remainRootBeerLabel.setValue("残り"+String.valueOf(ActionManagement.countStock(userId))+"本");
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+
+        userId =LoginSession.getLoginUserId();
+        refreshRemainRootBeer(userId);
+        //Log表示部分
+        UserAction = new ActionLogView(userId);
+        logTab.addComponent(UserAction);
+        logTab.setSizeFull();
+
     }
 
 }
