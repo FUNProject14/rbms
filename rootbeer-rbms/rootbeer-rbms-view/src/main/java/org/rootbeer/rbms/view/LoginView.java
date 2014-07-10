@@ -17,20 +17,20 @@ import org.rootbeer.rbms.view.util.LoginSession;
  * ログインフォームを表示するビューです。
  */
 public class LoginView extends GridLayout implements View {
-    
+
     private final TextField userIdField;
     private final PasswordField passwordField;
     private final Button loginButton;
-    
+
     public LoginView() {
         // ユーザーID入力領域を設定
         userIdField = new TextField("ユーザーID:");
         userIdField.setRequired(true);
-        
+
         // パスワード入力領域を設定
         passwordField = new PasswordField("パスワード:");
         passwordField.setRequired(true);
-        
+
         // ログインボタンを作る
         loginButton = new Button("ログイン");
         loginButton.addClickListener(new Button.ClickListener() {
@@ -42,9 +42,12 @@ public class LoginView extends GridLayout implements View {
                 } catch (LoginException ex) {
                     loginButton.setComponentError(new UserError(ex.getMessage()));
                 }
+                if (LoginSession.isLoggedIn()) {
+                    getUI().getNavigator().navigateTo(RootBeerManagementSystemUI.MYUSER_VIEW);
+                }
             }
         });
-        
+
         // レイアウトを設定
         setSizeFull();
 
@@ -56,18 +59,18 @@ public class LoginView extends GridLayout implements View {
         panel.setHeight("200px");
 
         setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
-        
+
         FormLayout form = new FormLayout();
         form.addComponent(userIdField);
         form.addComponent(passwordField);
         form.addComponent(loginButton);
         panel.setContent(form);
-        
+
     }
-    
+
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         userIdField.focus();
     }
-    
+
 }
