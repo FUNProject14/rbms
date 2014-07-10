@@ -96,6 +96,7 @@ public class MyUserView extends GridLayout implements View {
     public void enter(ViewChangeListener.ViewChangeEvent event) {
 
         userId =LoginSession.getLoginUserId();
+        //userId="michiko2";
         refreshRemainRootBeer(userId);
         //Log表示部分
         UserAction = new ActionLogView(userId);
