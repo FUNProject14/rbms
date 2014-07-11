@@ -25,6 +25,13 @@ public class LoginSession {
         }
         VaadinService.getCurrentRequest().getWrappedSession().setAttribute(ATTRIBUTE_USER_ID, user.getUserId());
     }
+    
+    /**
+     * ログアウトします。
+     */
+    public static void logout() {
+        VaadinService.getCurrentRequest().getWrappedSession().removeAttribute(ATTRIBUTE_USER_ID);
+    }
 
     /**
      * 現在のログインユーザーIDを返します。

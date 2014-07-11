@@ -13,23 +13,26 @@ import org.rootbeer.rbms.view.util.LoginSession;
  *
  * @author prices_over
  */
-public class MyUserView extends GridLayout implements View {
+public final class MyUserView extends GridLayout implements View {
 
-    private final GridLayout remainRootBeerLayout;
+    private GridLayout remainRootBeerLayout;
     private String userId;
     private ActionLogView UserAction;
-    private final Button buyButton;
-    private final Button drinkButton;
-    private final TabSheet userTab;
+    private Button buyButton;
+    private Button drinkButton;
+    private TabSheet userTab;
     private final VerticalLayout logTab;
-    private final VerticalLayout graphTab;
-    private final VerticalLayout albumTab;
+    private VerticalLayout graphTab;
+    private VerticalLayout albumTab;
     Label remainRootBeerLabel = new Label();
 
     public MyUserView() {
+        if (!LoginSession.isLoggedIn()) {
+            RootBeerManagementSystemUI.getCurrent().getNavigator().navigateTo("");
+        }
 
         setRows(1);
-        setColumns(3);
+        setColumns(2);
 
         setSizeFull();
 

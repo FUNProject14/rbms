@@ -8,6 +8,8 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
@@ -17,15 +19,25 @@ import org.rootbeer.rbms.view.util.LoginSession;
 /**
  * ログインフォームを表示するビューです。
  */
-public class LoginView extends GridLayout implements View {
+public final class LoginView extends GridLayout implements View {
 
-    private final TextField userIdField;
-    private final PasswordField passwordField;
-    private final Button loginButton;
+    private TextField userIdField;
+    private PasswordField passwordField;
+    private Button loginButton;
 
     public LoginView() {
         if (LoginSession.isLoggedIn()) {
-            
+            final Label label = new Label(LoginSession.getLoginUserId() + " としてログイン中");
+            final Button logoutButton = new Button("ログアウト", new Button.ClickListener() {
+                @Override
+                public void buttonClick(Button.ClickEvent event) {
+                    LoginSession.logout();
+                    getUI().getPage().setLocation("");
+                }
+            });
+            addComponent(label);
+            addComponent(logoutButton);
+            return;
         }
         // ユーザーID入力領域を設定
         userIdField = new TextField("ユーザーID:");

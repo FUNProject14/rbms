@@ -22,19 +22,19 @@ public class UserView extends GridLayout implements View {
 
     public UserView() {
 
-        setRows(2);
-        setColumns(3);
+        setColumns(2);
+        setRows(1);
 
         // 飲んだ本数表示部分
         remainRootBeerLabel = new Label();
         drinkLayout = new GridLayout(2, 2);
         drinkLayout.addComponent(remainRootBeerLabel, 1, 0);
         drinkLayout.setSizeFull();
-        addComponent(drinkLayout, 1, 0);
+        addComponent(drinkLayout, 0, 0);
 
         // タブ表示部分
         userTab = new TabSheet();
-        addComponent(userTab, 1, 1);
+        addComponent(userTab, 1, 0);
         userTab.setSizeFull();
         logTab = new VerticalLayout();
         logTab.setSizeFull();

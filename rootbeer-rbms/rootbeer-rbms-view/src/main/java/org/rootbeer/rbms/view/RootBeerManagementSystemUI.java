@@ -32,7 +32,6 @@ public class RootBeerManagementSystemUI extends UI {
         
         // ビューを作成し登録
         navigator.addView("", new StartView());
-        navigator.addView(LOGIN_VIEW, new LoginView());
         navigator.addView(USER_VIEW,  new UserView());
         navigator.addView(MYUSER_VIEW, new MyUserView());
         navigator.addView(REGISTER_VIEW, new RegisterView());
