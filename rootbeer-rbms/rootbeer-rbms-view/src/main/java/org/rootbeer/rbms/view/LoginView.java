@@ -24,6 +24,7 @@ public final class LoginView extends GridLayout implements View {
     private TextField userIdField;
     private PasswordField passwordField;
     private Button loginButton;
+    private Button registerButton;
 
     public LoginView() {
         if (LoginSession.isLoggedIn()) {
@@ -51,7 +52,7 @@ public final class LoginView extends GridLayout implements View {
         loginButton = new Button("ログイン");
         loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         loginButton.addClickListener(new Button.ClickListener() {
-
+            
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 try {
@@ -64,25 +65,38 @@ public final class LoginView extends GridLayout implements View {
                 }
             }
         });
+        
+        // 新規登録ボタンを作る
+        registerButton = new Button("新規登録");
+        registerButton.addClickListener(new Button.ClickListener() {
+
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                getUI().getNavigator().navigateTo(RootBeerManagementSystemUI.REGISTER_VIEW);
+            }
+        });
 
         // レイアウトを設定
         setSizeFull();
-
-        Panel panel = new Panel("ログイン");
-        addComponent(panel);
-
-        // magic goes in 2 lines below
-        panel.setWidth("300px");
-        panel.setHeight("200px");
-
-        setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
 
         FormLayout form = new FormLayout();
         form.addComponent(userIdField);
         form.addComponent(passwordField);
         form.addComponent(loginButton);
-        panel.setContent(form);
+        
+        GridLayout grid = new GridLayout(2, 2);
+        grid.addComponent(registerButton, 1, 0);
+        grid.addComponent(form, 0, 1, 1, 1);
+        
+        Panel panel = new Panel("ログイン");
+        panel.setContent(grid);
 
+        addComponent(panel);
+        
+        panel.setWidth("300px");
+        panel.setHeight("200px");
+
+        setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
     }
 
     @Override

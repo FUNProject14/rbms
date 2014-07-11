@@ -8,9 +8,13 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.rootbeer.rbms.logic.CreateAccountException;
 import org.rootbeer.rbms.logic.UserManagement;
 import org.rootbeer.rbms.model.User;
+import org.rootbeer.rbms.view.util.LoginException;
+import org.rootbeer.rbms.view.util.LoginSession;
 
 /**
  * アカウント新規登録ビューです。
@@ -39,6 +43,12 @@ public class RegisterView extends VerticalLayout implements View {
                     register(new User(userIdField.getValue(),
                             passwordField.getValue(),
                             fullNameField.getValue()));
+                    try {
+                        LoginSession.login(userIdField.getValue(), passwordField.getValue());
+                    } catch (LoginException ex) {
+                        Logger.getLogger(RegisterView.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    getUI().getNavigator().navigateTo(RootBeerManagementSystemUI.MYUSER_VIEW);
                 } catch (CreateAccountException ex) {
                     registerButton.setComponentError(new UserError(ex.getMessage()));
                 }

@@ -17,7 +17,7 @@ public final class MyUserView extends GridLayout implements View {
 
     private GridLayout remainRootBeerLayout;
     private String userId;
-    private ActionLogView UserAction;
+    private ActionLogView actionLogView;
     private Button buyButton;
     private Button drinkButton;
     private TabSheet userTab;
@@ -44,68 +44,84 @@ public final class MyUserView extends GridLayout implements View {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                org.rootbeer.rbms.model.Action action = new org.rootbeer.rbms.model.Action(
-                        org.rootbeer.rbms.model.Action.Act.BUY, userId, new Date()
-                );
-                try {
-                    ActionManagement.addActionWithChecking(action);
-                    refreshRemainRootBeer(userId);
-                    UserAction.refreshActionLogTable(userId);
-                } catch (AddActionIllegalStateException e) {
-                    buyButton.setComponentError(new UserError(e.getMessage()));
-                }
+                buyButtonClick();
             }
         });
         remainRootBeerLayout.addComponent(buyButton, 1, 1);
 
         drinkButton = new Button("飲む");
         drinkButton.addClickListener(new Button.ClickListener() {
+            
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                org.rootbeer.rbms.model.Action action = new org.rootbeer.rbms.model.Action(
-                        org.rootbeer.rbms.model.Action.Act.DRINK, userId, new Date());
-                try {
-                    ActionManagement.addActionWithChecking(action);
-                    refreshRemainRootBeer(userId);
-                    UserAction.refreshActionLogTable(userId);
-                } catch (AddActionIllegalStateException e) {
-                    drinkButton.setComponentError(new UserError(e.getMessage()));
-                }
+                drinkButtonClick();
             }
         });
-        remainRootBeerLayout.addComponent(drinkButton, 1, 2);
+        remainRootBeerLayout.addComponent(drinkButton,
+                1, 2);
 
-        addComponent(remainRootBeerLayout, 0, 0);
+        addComponent(remainRootBeerLayout,
+                0, 0);
         remainRootBeerLayout.setSizeFull();
 
         userTab = new TabSheet();
+
         userTab.setSizeFull();
-        addComponent(userTab, 1, 0);
+
+        addComponent(userTab,
+                1, 0);
 
         logTab = new VerticalLayout();
         graphTab = new VerticalLayout();
         albumTab = new VerticalLayout();
-        userTab.addTab(logTab, "Log");
-        userTab.addTab(graphTab, "Graph");
-        userTab.addTab(albumTab, "Album");
 
-    }
+        userTab.addTab(logTab,
+                "Log");
+        userTab.addTab(graphTab,
+                "Graph");
+        userTab.addTab(albumTab,
+                "Album");
 
-    private void refreshRemainRootBeer(String userId) {
-        remainRootBeerLabel.setValue("残り"+String.valueOf(ActionManagement.countStock(userId))+"本");
-    }
+    }    
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
 
-        userId =LoginSession.getLoginUserId();
-        //userId="michiko2";
+        userId = LoginSession.getLoginUserId();
         refreshRemainRootBeer(userId);
         //Log表示部分
-        UserAction = new ActionLogView(userId);
-        logTab.addComponent(UserAction);
+        actionLogView = new ActionLogView(userId);
+        logTab.addComponent(actionLogView);
         logTab.setSizeFull();
 
     }
 
+    private void refreshRemainRootBeer(String userId) {
+        remainRootBeerLabel.setValue("残り" + String.valueOf(ActionManagement.countStock(userId)) + "本");
+    }
+    
+    void buyButtonClick() {
+        org.rootbeer.rbms.model.Action action = new org.rootbeer.rbms.model.Action(
+                org.rootbeer.rbms.model.Action.Act.BUY, userId, new Date()
+        );
+        try {
+            ActionManagement.addActionWithChecking(action);
+            refreshRemainRootBeer(userId);
+            actionLogView.refreshActionLogTable(userId);
+        } catch (AddActionIllegalStateException e) {
+            buyButton.setComponentError(new UserError(e.getMessage()));
+        }
+    }
+
+    void drinkButtonClick() {
+        org.rootbeer.rbms.model.Action action = new org.rootbeer.rbms.model.Action(
+                org.rootbeer.rbms.model.Action.Act.DRINK, userId, new Date());
+        try {
+            ActionManagement.addActionWithChecking(action);
+            refreshRemainRootBeer(userId);
+            actionLogView.refreshActionLogTable(userId);
+        } catch (AddActionIllegalStateException e) {
+            drinkButton.setComponentError(new UserError(e.getMessage()));
+        }
+    }
 }
