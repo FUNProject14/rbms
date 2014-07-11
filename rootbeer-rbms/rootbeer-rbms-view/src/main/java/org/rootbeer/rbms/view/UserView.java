@@ -3,7 +3,6 @@ package org.rootbeer.rbms.view;
 import com.vaadin.navigator.*;
 import com.vaadin.ui.*;
 import org.rootbeer.rbms.logic.ActionManagement;
-import org.rootbeer.rbms.view.util.LoginSession;
 
 /**
  * ユーザページを表示するビューです

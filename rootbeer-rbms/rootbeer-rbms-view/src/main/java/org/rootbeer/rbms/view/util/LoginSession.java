@@ -41,6 +41,20 @@ public class LoginSession {
     public static String getLoginUserId() {
         return (String) VaadinService.getCurrentRequest().getWrappedSession().getAttribute(ATTRIBUTE_USER_ID);
     }
+    
+    /**
+     * 現在のログインユーザーをUserオブジェクトとして返します。
+     * ユーザーIDだけが必要な場合はgetLoginUserIdを使用して下さい。
+     * 
+     * @return ログインユーザー、もしログイン中でなければnull
+     */
+    public static User getLoginUser() {
+        String userId = getLoginUserId();
+        if (userId == null) {
+            return null;
+        }
+        return Database.getUser(userId);
+    }
 
     /**
      * 現在ログインしているかを返します。

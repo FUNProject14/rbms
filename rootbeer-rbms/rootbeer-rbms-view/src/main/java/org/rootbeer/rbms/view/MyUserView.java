@@ -15,22 +15,18 @@ import org.rootbeer.rbms.view.util.LoginSession;
  */
 public final class MyUserView extends GridLayout implements View {
 
-    private GridLayout remainRootBeerLayout;
+    private final GridLayout remainRootBeerLayout;
     private String userId;
     private ActionLogView actionLogView;
-    private Button buyButton;
-    private Button drinkButton;
-    private TabSheet userTab;
+    private final Button buyButton;
+    private final Button drinkButton;
+    private final TabSheet userTab;
     private final VerticalLayout logTab;
-    private VerticalLayout graphTab;
-    private VerticalLayout albumTab;
+    private final VerticalLayout graphTab;
+    private final VerticalLayout albumTab;
     Label remainRootBeerLabel = new Label();
 
     public MyUserView() {
-        if (!LoginSession.isLoggedIn()) {
-            RootBeerManagementSystemUI.getCurrent().getNavigator().navigateTo("");
-        }
-
         setRows(1);
         setColumns(2);
 
@@ -86,6 +82,11 @@ public final class MyUserView extends GridLayout implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+        if (!LoginSession.isLoggedIn()) {
+            getUI().getNavigator().navigateTo("");
+            Notification.show("ログインしてください", Notification.Type.WARNING_MESSAGE);
+            return;
+        }
 
         userId = LoginSession.getLoginUserId();
         refreshRemainRootBeer(userId);
