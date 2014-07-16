@@ -13,13 +13,14 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
 import org.rootbeer.rbms.view.util.LoginException;
 import org.rootbeer.rbms.view.util.LoginSession;
 
 /**
  * ログインフォームを表示するビューです。
  */
-public final class LoginView extends GridLayout implements View {
+public final class LoginView extends VerticalLayout implements View {
 
     private TextField userIdField;
     private PasswordField passwordField;
@@ -77,26 +78,21 @@ public final class LoginView extends GridLayout implements View {
         });
 
         // レイアウトを設定
-        setSizeFull();
-
         FormLayout form = new FormLayout();
         form.addComponent(userIdField);
         form.addComponent(passwordField);
         form.addComponent(loginButton);
         
-        GridLayout grid = new GridLayout(2, 2);
-        grid.addComponent(registerButton, 1, 0);
-        grid.addComponent(form, 0, 1, 1, 1);
+        VerticalLayout layout = new VerticalLayout();
+        layout.addComponent(registerButton);
+        layout.setComponentAlignment(registerButton, Alignment.TOP_RIGHT);
+        layout.addComponent(form);
+        layout.setComponentAlignment(form, Alignment.TOP_CENTER);
         
         Panel panel = new Panel("ログイン");
-        panel.setContent(grid);
+        panel.setContent(layout);
 
         addComponent(panel);
-        
-        panel.setWidth("300px");
-        panel.setHeight("200px");
-
-        setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
     }
 
     @Override

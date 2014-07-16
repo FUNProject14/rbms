@@ -1,19 +1,23 @@
 package org.rootbeer.rbms.view;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import javax.servlet.annotation.WebServlet;
 
 /**
  * ルートビア管理システムのUIを表すクラス
  */
+@Theme("rbms")
 public class RootBeerManagementSystemUI extends UI {
     
     private Navigator navigator;
     protected static final String LOGIN_VIEW = "login";
+    protected static final String LOGOUT_VIEW = "logout";
     protected static final String USER_VIEW = "userview";
     protected static final String MYUSER_VIEW = "myuserview";
     protected static final String REGISTER_VIEW = "registerv";
@@ -35,6 +39,11 @@ public class RootBeerManagementSystemUI extends UI {
         navigator.addView(USER_VIEW,  new UserView());
         navigator.addView(MYUSER_VIEW, new MyUserView());
         navigator.addView(REGISTER_VIEW, new RegisterView());
+        navigator.addView(LOGOUT_VIEW, new LogoutView());
+        
+        MenuBar menubar = new MenuBar();
+        this.setContent(menubar);
+        menubar.addItem("Unko", null);
     }
     
 }

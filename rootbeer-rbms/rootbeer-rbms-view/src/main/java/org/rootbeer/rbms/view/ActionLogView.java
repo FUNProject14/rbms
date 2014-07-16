@@ -23,10 +23,11 @@ public final class ActionLogView extends VerticalLayout {
         this.userId = userId;
 
         // Initialize Table
-        actionLogTable = new Table("ACTION LOG");
+        actionLogTable = new Table();
         actionLogTable.addContainerProperty("UserID", String.class, null);
         actionLogTable.addContainerProperty("Act", Action.Act.class, null);
         actionLogTable.addContainerProperty("Date", Date.class, null);
+        actionLogTable.setSizeFull();
 
         refreshActionLogTable(userId);
         addComponent(actionLogTable);
